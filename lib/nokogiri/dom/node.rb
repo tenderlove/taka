@@ -16,6 +16,7 @@ module Nokogiri
 
       def nodeName
         return '#text' if text?
+        return '#comment' if comment?
         name
       end
 
