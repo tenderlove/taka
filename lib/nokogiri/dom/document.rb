@@ -8,18 +8,23 @@ module Nokogiri
       def doctype
         raise(NotImplementedError.new)
       end
+
       def implementation
         raise(NotImplementedError.new)
       end
+
       def documentElement
-        raise(NotImplementedError.new)
+        document
       end
+
       def createElement(tagName)
         raise(NotImplementedError.new)
       end
+
       def createDocumentFragment
         raise(NotImplementedError.new)
       end
+
       def createTextNode(data)
         raise(NotImplementedError.new)
       end

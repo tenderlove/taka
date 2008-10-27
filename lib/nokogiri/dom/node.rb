@@ -15,24 +15,28 @@ module Nokogiri
       NOTATION_NODE = 12
 
       def nodeName
-        raise(NotImplementedError.new)
+        return '#text' if text?
+        name
       end
 
       def nodeValue
         content
       end
 
-      def nodeValue=(_)
-        raise(NotImplementedError.new)
+      def nodeValue= value
+        self.content = value
       end
+
       def nodeType
-        raise(NotImplementedError.new)
+        type
       end
+
       def parentNode
-        raise(NotImplementedError.new)
+        parent
       end
+
       def childNodes
-        raise(NotImplementedError.new)
+        children
       end
 
       def firstChild
@@ -40,62 +44,82 @@ module Nokogiri
       end
 
       def lastChild
-        raise(NotImplementedError.new)
+        children.last
       end
+
       def previousSibling
-        raise(NotImplementedError.new)
+        previous_sibling
       end
+
       def nextSibling
-        raise(NotImplementedError.new)
+        next_sibling
       end
+
       def attributes
         raise(NotImplementedError.new)
       end
+
       def ownerDocument
-        raise(NotImplementedError.new)
+        return nil if self == document
+        document
       end
+
       def insertBefore(newChild, refChild)
         raise(NotImplementedError.new)
       end
+
       def replaceChild(newChild, oldChild)
         raise(NotImplementedError.new)
       end
-      def removeChild(oldChild)
-        raise(NotImplementedError.new)
+
+      def removeChild old_child
+        old_child.remove
       end
+
       def appendChild(newChild)
         raise(NotImplementedError.new)
       end
+
       def hasChildNodes
-        raise(NotImplementedError.new)
+        children.empty?
       end
+
       def cloneNode(deep)
         raise(NotImplementedError.new)
       end
+
       def normalize
         raise(NotImplementedError.new)
       end
+
       def isSupported(feature, version)
         raise(NotImplementedError.new)
       end
+
       def namespaceURI
         raise(NotImplementedError.new)
       end
+
       def prefix
         raise(NotImplementedError.new)
       end
+
       def prefix=(_)
         raise(NotImplementedError.new)
       end
+
       def localName
         raise(NotImplementedError.new)
       end
+
       def hasAttributes
         raise(NotImplementedError.new)
       end
+
       def baseURI
         raise(NotImplementedError.new)
       end
+
       DOCUMENT_POSITION_DISCONNECTED = 0
       DOCUMENT_POSITION_PRECEDING = 0
       DOCUMENT_POSITION_FOLLOWING = 0
@@ -105,9 +129,11 @@ module Nokogiri
       def compareDocumentPosition(other)
         raise(NotImplementedError.new)
       end
+
       def textContent
-        raise(NotImplementedError.new)
+        content
       end
+
       def textContent=(_)
         raise(NotImplementedError.new)
       end
