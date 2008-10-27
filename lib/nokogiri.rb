@@ -1,3 +1,4 @@
+require 'nokogiri/dom'
 require 'nokogiri/version'
 require 'nokogiri/xml'
 require 'nokogiri/xslt'

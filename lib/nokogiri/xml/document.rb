@@ -1,6 +1,8 @@
 module Nokogiri
   module XML
     class Document < Node
+      include DOM::Document
+
       def decorators
         @decorators ||= Hash.new { |h,k| h[k] = [] }
       end

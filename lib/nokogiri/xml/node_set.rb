@@ -2,6 +2,7 @@ module Nokogiri
   module XML
     class NodeSet
       include Enumerable
+      include DOM::NodeSet
 
       attr_accessor :document
 

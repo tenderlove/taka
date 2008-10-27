@@ -1,6 +1,15 @@
 module Nokogiri
   module XML
     class Node
+      include DOM::Node
+
+      ELEMENT_NODE = 1
+      ATTRIBUTE_NODE = 2
+      TEXT_NODE = 3
+      CDATA_SECTION_NODE = 4
+      ENTITY_REF_NODE = 5
+      ENTITY_NODE = 6
+      PI_NODE = 7
       COMMENT_NODE = 8
       DOCUMENT_NODE = 9
       HTML_DOCUMENT_NODE = 13
@@ -157,6 +166,10 @@ module Nokogiri
 
       def html?
         type == HTML_DOCUMENT_NODE
+      end
+
+      def text?
+        type == TEXT_NODE
       end
 
       def to_html
