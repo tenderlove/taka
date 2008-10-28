@@ -160,6 +160,10 @@ module Nokogiri
         type == COMMENT_NODE
       end
 
+      def cdata?
+        type == CDATA_SECTION_NODE
+      end
+
       def xml?
         type == DOCUMENT_NODE
       end
