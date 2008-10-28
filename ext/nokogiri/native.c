@@ -2,6 +2,7 @@
 
 VALUE mNokogiri ;
 VALUE mNokogiriXml ;
+VALUE mNokogiriDom ;
 VALUE mNokogiriHtml ;
 VALUE mNokogiriXslt ;
 VALUE mNokogiriXmlSax ;
@@ -11,6 +12,7 @@ void Init_native()
 {
   mNokogiri = rb_const_get(rb_cObject, rb_intern("Nokogiri"));
   mNokogiriXml = rb_const_get(mNokogiri, rb_intern("XML"));
+  mNokogiriDom = rb_const_get(mNokogiri, rb_intern("DOM"));
   mNokogiriHtml = rb_const_get(mNokogiri, rb_intern("HTML"));
   mNokogiriXslt = rb_const_get(mNokogiri, rb_intern("XSLT"));
   mNokogiriXmlSax = rb_const_get(mNokogiriXml, rb_intern("SAX"));

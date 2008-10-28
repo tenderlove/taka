@@ -31,6 +31,8 @@ static VALUE notations(VALUE self)
   VALUE hash = rb_hash_new();
 
   xmlHashScan((xmlHashTablePtr)dtd->notations, notation_copier, (void *)hash);
+  VALUE named_node_map = rb_const_get(mNokogiriDom, rb_intern("NamedNodeMap"));
+  rb_funcall(hash, rb_intern("extend"), 1, named_node_map);
 
   return hash;
 }
