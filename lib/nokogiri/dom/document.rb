@@ -6,7 +6,7 @@ module Nokogiri
       end
 
       def doctype
-        raise(NotImplementedError.new)
+        internal_subset
       end
 
       def implementation
