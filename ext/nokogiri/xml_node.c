@@ -241,6 +241,10 @@ static VALUE attributes(VALUE self)
 
     Nokogiri_xml_node_properties(node, attr);
 
+    VALUE named_node_map =
+      rb_const_get(mNokogiriDom, rb_intern("NamedNodeMap"));
+    rb_funcall(attr, rb_intern("extend"), 1, named_node_map);
+
     return attr ;
 }
 

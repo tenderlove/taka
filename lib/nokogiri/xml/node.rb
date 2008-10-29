@@ -1,6 +1,7 @@
 module Nokogiri
   module XML
     class Node
+      include DOM::Element
       include DOM::Node
 
       ELEMENT_NODE = 1

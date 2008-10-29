@@ -14,6 +14,8 @@ ext/nokogiri/xml_cdata.c
 ext/nokogiri/xml_cdata.h
 ext/nokogiri/xml_document.c
 ext/nokogiri/xml_document.h
+ext/nokogiri/xml_dtd.c
+ext/nokogiri/xml_dtd.h
 ext/nokogiri/xml_node.c
 ext/nokogiri/xml_node.h
 ext/nokogiri/xml_node_set.c
@@ -47,6 +49,13 @@ lib/nokogiri/decorators/hpricot.rb
 lib/nokogiri/decorators/hpricot/node.rb
 lib/nokogiri/decorators/hpricot/node_set.rb
 lib/nokogiri/decorators/hpricot/xpath_visitor.rb
+lib/nokogiri/dom.rb
+lib/nokogiri/dom/document.rb
+lib/nokogiri/dom/named_node_map.rb
+lib/nokogiri/dom/node.rb
+lib/nokogiri/dom/node_set.rb
+lib/nokogiri/dom/notation.rb
+lib/nokogiri/dom/text.rb
 lib/nokogiri/hpricot.rb
 lib/nokogiri/html.rb
 lib/nokogiri/html/builder.rb
@@ -57,9 +66,12 @@ lib/nokogiri/xml.rb
 lib/nokogiri/xml/after_handler.rb
 lib/nokogiri/xml/before_handler.rb
 lib/nokogiri/xml/builder.rb
+lib/nokogiri/xml/cdata.rb
 lib/nokogiri/xml/document.rb
+lib/nokogiri/xml/dtd.rb
 lib/nokogiri/xml/node.rb
 lib/nokogiri/xml/node_set.rb
+lib/nokogiri/xml/notation.rb
 lib/nokogiri/xml/reader.rb
 lib/nokogiri/xml/sax.rb
 lib/nokogiri/xml/sax/document.rb
@@ -105,7 +117,9 @@ test/test_reader.rb
 test/test_xslt_transforms.rb
 test/xml/sax/test_parser.rb
 test/xml/test_builder.rb
+test/xml/test_cdata.rb
 test/xml/test_document.rb
+test/xml/test_dtd.rb
 test/xml/test_node.rb
 test/xml/test_node_set.rb
 test/xml/test_text.rb

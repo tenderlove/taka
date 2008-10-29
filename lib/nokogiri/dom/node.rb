@@ -17,6 +17,7 @@ module Nokogiri
       def nodeName
         return '#text' if text?
         return '#comment' if comment?
+        return '#document' if self == document
         name
       end
 
@@ -135,12 +136,14 @@ module Nokogiri
         content
       end
 
-      def textContent=(_)
-        raise(NotImplementedError.new)
+      def textContent= string
+        self.content = string
       end
+
       def isSameNode(other)
         raise(NotImplementedError.new)
       end
+
       def lookupPrefix(namespaceURI)
         raise(NotImplementedError.new)
       end
