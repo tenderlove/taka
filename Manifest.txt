@@ -69,6 +69,7 @@ lib/nokogiri/xml/builder.rb
 lib/nokogiri/xml/cdata.rb
 lib/nokogiri/xml/document.rb
 lib/nokogiri/xml/dtd.rb
+lib/nokogiri/xml/element.rb
 lib/nokogiri/xml/node.rb
 lib/nokogiri/xml/node_set.rb
 lib/nokogiri/xml/notation.rb
