@@ -40,6 +40,8 @@ static VALUE entities(VALUE self)
   VALUE hash = rb_hash_new();
 
   xmlHashScan((xmlHashTablePtr)dtd->entities, element_copier, (void *)hash);
+  VALUE named_node_map = rb_const_get(mNokogiriDom, rb_intern("NamedNodeMap"));
+  rb_funcall(hash, rb_intern("extend"), 1, named_node_map);
 
   return hash;
 }
@@ -60,6 +62,8 @@ static VALUE attributes(VALUE self)
   VALUE hash = rb_hash_new();
 
   xmlHashScan((xmlHashTablePtr)dtd->attributes, element_copier, (void *)hash);
+  VALUE named_node_map = rb_const_get(mNokogiriDom, rb_intern("NamedNodeMap"));
+  rb_funcall(hash, rb_intern("extend"), 1, named_node_map);
 
   return hash;
 }
@@ -102,6 +106,8 @@ static VALUE elements(VALUE self)
   VALUE hash = rb_hash_new();
 
   xmlHashScan((xmlHashTablePtr)dtd->elements, element_copier, (void *)hash);
+  VALUE named_node_map = rb_const_get(mNokogiriDom, rb_intern("NamedNodeMap"));
+  rb_funcall(hash, rb_intern("extend"), 1, named_node_map);
 
   return hash;
 }
