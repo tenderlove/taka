@@ -16,6 +16,7 @@ require 'nokogiri/xml/notation'
 require 'nokogiri/xml/element'
 require 'nokogiri/xml/entity_declaration'
 require 'nokogiri/xml/attr'
+require 'nokogiri/xml/dom_exception'
 
 module Nokogiri
   class << self
