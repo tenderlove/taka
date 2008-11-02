@@ -18,7 +18,7 @@ module Nokogiri
       end
 
       def getAttributeNode(name)
-        raise(NotImplementedError.new)
+        self.attribute(name)
       end
 
       def setAttributeNode(newAttr)
