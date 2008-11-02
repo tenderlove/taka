@@ -17,6 +17,12 @@ module Nokogiri
         assert_equal 'Yes', node['domestic']
         assert attribute = node.attribute('domestic')
         assert_equal 'domestic', attribute.name
+
+
+        assert foo = @xml.xpath('//address[@domestic]')[1]
+        assert foo_attr = foo.setAttributeNode(attribute)
+        assert_equal attribute.name, foo_attr.name
+        assert_equal attribute.value, foo_attr.value
       end
 
       def test_document_name

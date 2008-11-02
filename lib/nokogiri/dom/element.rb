@@ -21,8 +21,9 @@ module Nokogiri
         self.attribute(name)
       end
 
-      def setAttributeNode(newAttr)
-        raise(NotImplementedError.new)
+      def setAttributeNode(new_attribute)
+        self[new_attribute.name] = new_attribute.value
+        self.getAttributeNode(new_attribute.name)
       end
 
       def removeAttributeNode(oldAttr)
