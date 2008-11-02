@@ -1,5 +1,7 @@
 = Nokogiri (鋸)
 
+* http://nokogiri.rubyforge.org/
+* http://github.com/tenderlove/nokogiri/wikis
 * http://github.com/tenderlove/nokogiri/tree/master
 
 == DESCRIPTION:
@@ -14,6 +16,8 @@ Nokogiri はHTMLやXMLやSAXやXSLTやReaderのパーサーです。
 
 NokogiriはHpricotより早くパーサーし、検索出来たり、
 正確にCSS3とXPathをサポート出来たりする。
+
+  * http://gist.github.com/18533
 
 NokogiriはHpricotの代わりに使用出来る。
 その互換性は簡単に正しいCSSとXPathを使用する事が出来る。

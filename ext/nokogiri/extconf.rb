@@ -3,6 +3,8 @@ ENV["ARCHFLAGS"] = "-arch #{`uname -p` =~ /powerpc/ ? 'ppc' : 'i386'}"
 require 'mkmf'
 
 ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..', '..'))
+LIBDIR = Config::CONFIG['libdir']
+INCLUDEDIR = Config::CONFIG['includedir']
 
 $CFLAGS << " #{ENV["CFLAGS"]}"
 if Config::CONFIG['target_os'] == 'mingw32'
@@ -19,8 +21,8 @@ if Config::CONFIG['target_os'] == 'mingw32'
   find_library('xslt', 'xsltParseStylesheetDoc',
                File.join(ROOT, 'cross', 'libxslt-1.1.24.win32', 'bin'))
 else
-  find_library('xml2', 'xmlParseDoc')
-  find_library('xslt', 'xsltParseStylesheetDoc')
+  find_library('xml2', 'xmlParseDoc', LIBDIR)
+  find_library('xslt', 'xsltParseStylesheetDoc', LIBDIR)
 end
 
 
@@ -40,20 +42,14 @@ if Config::CONFIG['target_os'] == 'mingw32'
     abort "need iconv"
   end
 else
-  unless find_header('libxml/xmlversion.h', '/usr/include/libxml2')
+  unless find_header('libxml/xmlversion.h',
+                     File.join(INCLUDEDIR, "libxml2"), '/usr/include/libxml2'
+                    )
     abort "need libxml"
   end
-  unless find_header('libxslt/xslt.h', '/usr/include')
+  unless find_header('libxslt/xslt.h', INCLUDEDIR, '/usr/include')
     abort "need libxslt"
   end
-end
-
-unless find_executable("racc")
-  abort "need racc, get the tarball from http://i.loveruby.net/archive/racc/racc-1.4.5-all.tar.gz" 
-end
-
-unless find_executable("frex")
-  abort "need frex, sudo gem install aaronp-frex -s http://gems.github.com"   
 end
 
 create_makefile('nokogiri/native')

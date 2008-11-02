@@ -1,5 +1,7 @@
 = Nokogiri
 
+* http://nokogiri.rubyforge.org/
+* http://github.com/tenderlove/nokogiri/wikis
 * http://github.com/tenderlove/nokogiri/tree/master
 
 == DESCRIPTION:
@@ -15,6 +17,8 @@ Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser.
 
 Nokogiri parses and searches XML/HTML faster than Hpricot, and also has
 correctly implemented CSS3 selector support as well as XPath support.
+
+  * http://gist.github.com/18533
 
 Nokogiri also features an Hpricot compatibility layer to help ease the change
 to using correct CSS and XPath.
