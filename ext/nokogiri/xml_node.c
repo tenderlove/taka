@@ -225,6 +225,23 @@ static VALUE get(VALUE self, VALUE attribute)
 }
 
 /*
+ * call-seq:
+ *   attribute(name)
+ *
+ * Get the attribute node with +name+
+ */
+static VALUE attr(VALUE self, VALUE name)
+{
+  xmlNodePtr node;
+  xmlAttrPtr prop;
+  Data_Get_Struct(self, xmlNode, node);
+  prop = xmlHasProp(node, (xmlChar *)StringValuePtr(name));
+
+  if(! prop) return Qnil;
+  return Nokogiri_wrap_xml_node((xmlNodePtr)prop);
+}
+
+/*
  *  call-seq:
  *    attributes()
  *
@@ -561,6 +578,10 @@ VALUE Nokogiri_wrap_xml_node(xmlNodePtr node)
       klass = rb_const_get(mNokogiriXml, rb_intern("Element"));
       rb_node = Data_Wrap_Struct(klass, gc_mark_node, deallocate, node) ;
       break;
+    case XML_ATTRIBUTE_NODE:
+      klass = rb_const_get(mNokogiriXml, rb_intern("Attr"));
+      rb_node = Data_Wrap_Struct(klass, gc_mark_node, deallocate, node) ;
+      break;
     case XML_ENTITY_DECL:
       klass = rb_const_get(mNokogiriXml, rb_intern("EntityDeclaration"));
       rb_node = Data_Wrap_Struct(klass, gc_mark_node, deallocate, node) ;
@@ -698,6 +719,7 @@ void init_xml_node()
   rb_define_method(klass, "[]=", set, 2);
   rb_define_method(klass, "remove_attribute", remove_prop, 1);
   rb_define_method(klass, "attributes", attributes, 0);
+  rb_define_method(klass, "attribute", attr, 1);
   rb_define_method(klass, "namespaces", namespaces, 0);
   rb_define_method(klass, "add_previous_sibling", add_previous_sibling, 1);
   rb_define_method(klass, "add_next_sibling", add_next_sibling, 1);

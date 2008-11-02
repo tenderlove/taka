@@ -12,6 +12,13 @@ module Nokogiri
         assert xml.xml?
       end
 
+      def test_get_attribute_node
+        node = @xml.at('//address[@domestic]')
+        assert_equal 'Yes', node['domestic']
+        assert attribute = node.attribute('domestic')
+        assert_equal 'domestic', attribute.name
+      end
+
       def test_document_name
         xml = Nokogiri::XML(File.read(XML_FILE), XML_FILE)
         assert_equal 'document', xml.name
