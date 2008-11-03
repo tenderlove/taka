@@ -249,20 +249,21 @@ static VALUE attr(VALUE self, VALUE name)
  */
 static VALUE attributes(VALUE self)
 {
-    /* this code in the mode of xmlHasProp() */
-    xmlNodePtr node ;
-    VALUE attr ;
+  /* this code in the mode of xmlHasProp() */
+  xmlNodePtr node ;
+  VALUE attr ;
 
-    attr = rb_hash_new() ;
-    Data_Get_Struct(self, xmlNode, node);
+  attr = rb_hash_new() ;
+  Data_Get_Struct(self, xmlNode, node);
 
-    Nokogiri_xml_node_properties(node, attr);
+  Nokogiri_xml_node_properties(node, attr);
 
-    VALUE named_node_map =
-      rb_const_get(mNokogiriDom, rb_intern("NamedNodeMap"));
-    rb_funcall(attr, rb_intern("extend"), 1, named_node_map);
+  VALUE named_node_map =
+    rb_const_get(mNokogiriXml, rb_intern("NamedNodeMap"));
 
-    return attr ;
+  if(0 == NUM2INT(rb_funcall(attr, rb_intern("length"), 0))) return Qnil;
+
+  return rb_funcall(named_node_map, rb_intern("new"), 1, attr);
 }
 
 /*
@@ -611,10 +612,8 @@ void Nokogiri_xml_node_properties(xmlNodePtr node, VALUE attr_hash)
   xmlChar* propstr ;
   prop = node->properties ;
   while (prop != NULL) {
-    propstr = xmlGetProp(node, prop->name) ;
     rb_hash_aset(attr_hash, rb_str_new2((const char*)prop->name),
-                 rb_str_new2((char*)propstr));
-    xmlFree(propstr);
+      Nokogiri_wrap_xml_node((xmlNodePtr)prop));
     prop = prop->next ;
   }
 }

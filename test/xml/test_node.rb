@@ -128,8 +128,19 @@ module Nokogiri
         assert node = xml.search('//address')[2]
         attr = node.attributes
         assert_equal 2, attr.size
+
         assert_equal 'Yes', attr['domestic']
         assert_equal 'No', attr['street']
+      end
+
+      def test_set_attribute
+        xml = Nokogiri::XML.parse(File.read(XML_FILE), XML_FILE)
+        assert node = xml.search('//address')[2]
+        assert attributes = node.attributes
+        assert attributes['domestic']
+        attributes['domestic'] = 'awesome'
+        assert_equal 'awesome', attributes['domestic']
+        assert_equal 'awesome', node['domestic']
       end
 
       def test_path
