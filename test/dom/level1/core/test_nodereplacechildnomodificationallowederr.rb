@@ -18,7 +18,7 @@ See W3C License http://www.w3.org/Consortium/Legal/ for more details.
 =end
 #
 
-require 'dom_test_case'
+require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'helper'))
 
 ###
 #     The "replaceChild(newChild,oldChild)" method causes the 

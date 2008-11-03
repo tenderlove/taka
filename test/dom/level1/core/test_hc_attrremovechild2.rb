@@ -18,7 +18,7 @@ See W3C License http://www.w3.org/Consortium/Legal/ for more details.
 =end
 #
 
-require 'dom_test_case'
+require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'helper'))
 
 ###
 # Attempts to remove a freshly created text node which should result in a NOT_FOUND_ERR exception.

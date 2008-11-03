@@ -18,7 +18,7 @@ See W3C License http://www.w3.org/Consortium/Legal/ for more details.
 =end
 #
 
-require 'dom_test_case'
+require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'helper'))
 
 ###
 # Create an ent3 entity reference and call insertData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR. 
