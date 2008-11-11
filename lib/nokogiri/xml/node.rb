@@ -24,6 +24,7 @@ module Nokogiri
       DOCB_DOCUMENT_NODE = 21
 
       @@owned = {}
+      @@node2obj = {}
 
       ###
       # Decorate this node with the decorators set up in this node's Document
@@ -181,7 +182,10 @@ module Nokogiri
         to_xml
       end
       alias :to_s :to_html
-      alias :inner_html :to_html
+
+      def inner_html
+        children.map { |x| x.to_html }.join
+      end
 
       def css_path
         path.split(/\//).map { |part|
