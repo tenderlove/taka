@@ -39,13 +39,11 @@ module Nokogiri
         assert node.document
         assert node.previous_sibling
         assert node.next_sibling
-        assert node.instance_eval{ owned? }
         node.unlink
         assert !node.parent
         # assert !node.document # ugh. libxml doesn't clear node->doc pointer, due to xmlDict implementation.
         assert !node.previous_sibling
         assert !node.next_sibling
-        assert !node.instance_eval{ owned? }
         assert_no_match(/Hello world/, xml.to_s)
       end
 
@@ -151,13 +149,15 @@ module Nokogiri
       end
 
       def test_new_node
-        node = Nokogiri::XML::Node.new('form')
+        xml = Nokogiri::XML.parse(File.read(XML_FILE), XML_FILE)
+        node = Nokogiri::XML::Node.new('form', xml)
         assert_equal('form', node.name)
-        assert_nil(node.document)
+        assert(node.document)
       end
 
       def test_content
-        node = Nokogiri::XML::Node.new('form')
+        xml = Nokogiri::XML.parse(File.read(XML_FILE))
+        node = Nokogiri::XML::Node.new('form', xml)
         assert_equal('', node.content)
 
         node.content = 'hello world!'
@@ -173,7 +173,7 @@ module Nokogiri
         first = set[0]
         second = set[1]
 
-        node = Nokogiri::XML::Node.new('form')
+        node = Nokogiri::XML::Node.new('form', xml)
         first.replace(node)
 
         assert set = xml.search('//employee')

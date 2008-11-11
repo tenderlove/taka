@@ -50,6 +50,8 @@ else
   unless find_header('libxslt/xslt.h', INCLUDEDIR, '/usr/include')
     abort "need libxslt"
   end
+
+  version = try_constant('LIBXML_VERSION', 'libxml/xmlversion.h')
 end
 
 create_makefile('nokogiri/native')

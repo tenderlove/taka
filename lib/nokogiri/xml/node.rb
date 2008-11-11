@@ -23,8 +23,7 @@ module Nokogiri
       XINCLUDE_END = 20
       DOCB_DOCUMENT_NODE = 21
 
-      @@owned = {}
-      @@node2obj = {}
+      attr_accessor :document
 
       ###
       # Decorate this node with the decorators set up in this node's Document
@@ -207,6 +206,11 @@ module Nokogiri
         children.each{|j| j.traverse(&block) }
         block.call(self)
       end
+
+      def == other
+        pointer_id == other.pointer_id
+      end
+      alias :eql? :==
     end
   end
 end

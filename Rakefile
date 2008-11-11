@@ -1,14 +1,16 @@
 # -*- ruby -*-
 
 require 'rubygems'
-require 'mkmf'
-require 'hoe'
+require 'rake'
+
 
 kind = Config::CONFIG['DLEXT']
 windows = RUBY_PLATFORM =~ /mswin/i ? true : false
 
 LIB_DIR = File.expand_path(File.join(File.dirname(__FILE__), 'lib'))
 $LOAD_PATH << LIB_DIR
+
+require 'vendor/hoe'
 
 GENERATED_PARSER = "lib/nokogiri/css/generated_parser.rb"
 GENERATED_TOKENIZER = "lib/nokogiri/css/generated_tokenizer.rb"
@@ -19,6 +21,7 @@ require 'nokogiri/version'
 
 HOE = Hoe.new('nokogiri', Nokogiri::VERSION) do |p|
   p.developer('Aaron Patterson', 'aaronp@rubyforge.org')
+  p.developer('Mike Dalessio', 'mike.dalessio@gmail.com')
   p.clean_globs = [
     'ext/nokogiri/Makefile',
     'ext/nokogiri/*.{o,so,bundle,a,log,dll}',
@@ -55,6 +58,16 @@ namespace :gem do
     end
   end
 
+  namespace :jruby do
+    task :spec => ['build'] do
+      File.open("#{HOE.name}.gemspec", 'w') do |f|
+        HOE.spec.platform = 'jruby'
+        HOE.spec.extensions = []
+        f.write(HOE.spec.to_ruby)
+      end
+    end
+  end
+
   namespace :unix do
     task :spec do
       File.open("#{HOE.name}.gemspec", 'w') do |f|
@@ -73,17 +86,19 @@ task :coverage do
 end
 
 file GENERATED_PARSER => "lib/nokogiri/css/parser.y" do |t|
-  unless find_executable("racc")
+  begin
+    sh "racc -o #{t.name} #{t.prerequisites.first}"
+  rescue
     abort "need racc, get the tarball from http://i.loveruby.net/archive/racc/racc-1.4.5-all.tar.gz" 
   end
-  sh "racc -o #{t.name} #{t.prerequisites.first}"
 end
 
 file GENERATED_TOKENIZER => "lib/nokogiri/css/tokenizer.rex" do |t|
-  unless find_executable("frex")
+  begin
+    sh "frex -i --independent -o #{t.name} #{t.prerequisites.first}"
+  rescue
     abort "need frex, sudo gem install aaronp-frex -s http://gems.github.com"   
   end
-  sh "frex -i --independent -o #{t.name} #{t.prerequisites.first}"
 end
 
 task 'ext/nokogiri/Makefile' do
@@ -98,7 +113,11 @@ task EXT => 'ext/nokogiri/Makefile' do
   end
 end
 
-task :build => [EXT, GENERATED_PARSER, GENERATED_TOKENIZER]
+if RUBY_PLATFORM == 'java'
+  task :build => [GENERATED_PARSER, GENERATED_TOKENIZER]
+else
+  task :build => [EXT, GENERATED_PARSER, GENERATED_TOKENIZER]
+end
 
 namespace :build do
   namespace :win32 do
@@ -266,6 +285,14 @@ unless windows
   Rake::Task[:test].prerequisites << :build
   Rake::Task[:check_manifest].prerequisites << GENERATED_PARSER
   Rake::Task[:check_manifest].prerequisites << GENERATED_TOKENIZER
+end
+
+# Evil evil hack.  Do not run tests when gem installs
+if ENV['RUBYARCHDIR']
+  class << Rake::Task[:default]
+    attr_writer :prerequisites
+  end
+  Rake::Task[:default].prerequisites = [:build]
 end
 
 # vim: syntax=Ruby
