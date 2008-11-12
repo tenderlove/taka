@@ -41,6 +41,7 @@ lib/nokogiri/css/generated_tokenizer.rb
 lib/nokogiri/css/node.rb
 lib/nokogiri/css/parser.rb
 lib/nokogiri/css/parser.y
+lib/nokogiri/css/syntax_error.rb
 lib/nokogiri/css/tokenizer.rb
 lib/nokogiri/css/tokenizer.rex
 lib/nokogiri/css/xpath_visitor.rb
@@ -86,6 +87,7 @@ lib/nokogiri/xml/sax/parser.rb
 lib/nokogiri/xml/syntax_error.rb
 lib/nokogiri/xml/text.rb
 lib/nokogiri/xml/xpath.rb
+lib/nokogiri/xml/xpath/syntax_error.rb
 lib/nokogiri/xml/xpath_context.rb
 lib/nokogiri/xslt.rb
 lib/nokogiri/xslt/stylesheet.rb

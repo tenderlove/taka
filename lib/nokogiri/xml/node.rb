@@ -34,8 +34,7 @@ module Nokogiri
       ###
       # Get the list of children for this node as a NodeSet
       def children
-        list = NodeSet.new
-        list.document = document
+        list = NodeSet.new(document)
         document.decorate(list)
 
         first = self.child
@@ -55,7 +54,7 @@ module Nokogiri
       def search *paths
         ns = paths.last.is_a?(Hash) ? paths.pop : {}
         xpath(*(paths.map { |path|
-          path =~ /^(\.\/|\/)/ ? path : CSS::Parser.parse(path).map { |ast|
+          path =~ /^(\.\/|\/)/ ? path : CSS.parse(path).map { |ast|
             ast.to_xpath
           }
         }.flatten.uniq) + [ns])
@@ -65,7 +64,7 @@ module Nokogiri
       def xpath *paths
         ns = paths.last.is_a?(Hash) ? paths.pop : {}
 
-        return NodeSet.new unless document.root
+        return NodeSet.new(document) unless document.root
 
         sets = paths.map { |path|
           ctx = XPathContext.new(self)
@@ -77,7 +76,7 @@ module Nokogiri
         }
         return sets.first if sets.length == 1
 
-        NodeSet.new do |combined|
+        NodeSet.new(document) do |combined|
           document.decorate(combined)
           sets.each do |set|
             set.each do |node|
@@ -89,7 +88,7 @@ module Nokogiri
 
       def css *rules
         xpath(*(rules.map { |rule|
-          CSS::Parser.parse(rule).map { |ast| "." + ast.to_xpath }
+          CSS.parse(rule).map { |ast| "." + ast.to_xpath }
         }.flatten.uniq))
       end
 
@@ -206,11 +205,6 @@ module Nokogiri
         children.each{|j| j.traverse(&block) }
         block.call(self)
       end
-
-      def == other
-        pointer_id == other.pointer_id
-      end
-      alias :eql? :==
     end
   end
 end

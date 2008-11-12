@@ -1,23 +1,16 @@
 module Nokogiri
   module CSS
-    class Parser < GeneratedParser
+    class Parser < GeneratedTokenizer
       class << self
         def parse string
           new.parse(string)
         end
       end
+      alias :parse :scan_str
 
-      def initialize
-        @tokenizer = Tokenizer.new
-      end
-
-      def parse string
-        @tokenizer.scan string
-        do_parse
-      end
-
-      def next_token
-        @tokenizer.next_token
+      def on_error error_token_id, error_value, value_stack
+        after = value_stack.compact.last
+        raise SyntaxError.new("unexpected '#{error_value}' after '#{after}'")
       end
     end
   end

@@ -405,7 +405,8 @@ static VALUE get_name(VALUE self)
 {
   xmlNodePtr node;
   Data_Get_Struct(self, xmlNode, node);
-  return rb_str_new2((const char *)node->name);
+  if(node->name) return rb_str_new2((const char *)node->name);
+  return Qnil;
 }
 
 /*
@@ -535,7 +536,17 @@ static VALUE new_from_str(VALUE klass, VALUE xml)
 
 VALUE Nokogiri_wrap_xml_node(xmlNodePtr node)
 {
-  VALUE rb_node = Qnil;
+  assert(node);
+  assert(node->doc);
+  assert(node->doc->_private);
+
+  VALUE index = INT2NUM((int)node);
+  VALUE document = (VALUE)node->doc->_private;
+
+  VALUE node_cache = rb_funcall(document, rb_intern("node_cache"), 0);
+  VALUE rb_node = rb_hash_aref(node_cache, index);
+
+  if(rb_node != Qnil) return rb_node;
 
   switch(node->type)
   {
@@ -569,11 +580,8 @@ VALUE Nokogiri_wrap_xml_node(xmlNodePtr node)
       rb_node = Data_Wrap_Struct(cNokogiriXmlNode, 0, 0, node) ;
   }
 
-  assert(node);
-  assert(node->doc);
-  assert(node->doc->_private);
-
-  rb_iv_set(rb_node, "@document",(VALUE)node->doc->_private);
+  rb_hash_aset(node_cache, index, rb_node);
+  rb_iv_set(rb_node, "@document", document);
   rb_funcall(rb_node, rb_intern("decorate!"), 0);
   return rb_node ;
 }
