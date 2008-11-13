@@ -6,7 +6,16 @@ require 'rake/gempackagetask'
 require 'rake/rdoctask'
 require 'rake/testtask'
 require 'rbconfig'
-require 'rubyforge'
+require 'uri'
+
+if ENV['RUBYARCHDIR']
+  class RubyForge
+    VERSION = 'awesome'
+  end
+else
+  require 'rubyforge'
+end
+
 require 'yaml'
 
 begin
@@ -621,8 +630,6 @@ class Hoe
 
     Rake::RDocTask.new(:docs) do |rd|
       rd.main = "README.txt"
-      rd.options << '-d' if
-        `which dot` =~ /\/dot/ unless ENV['NODOT'] unless WINDOZE
       rd.rdoc_dir = 'doc'
       files = spec.files.grep(rdoc_pattern)
       files -= ['Manifest.txt']

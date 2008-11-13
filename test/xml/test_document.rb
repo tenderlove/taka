@@ -51,6 +51,12 @@ module Nokogiri
         assert_equal 0, ns.length
       end
 
+      def test_bad_xpath_raises_syntax_error
+        assert_raises(XML::XPath::SyntaxError) {
+          @xml.xpath('\\')
+        }
+      end
+
       def test_new_document_collect_namespaces
         doc = Nokogiri::XML::Document.new
         assert_equal({}, doc.collect_namespaces)
@@ -89,6 +95,17 @@ module Nokogiri
 
       def test_document
         assert @xml.document
+      end
+
+      def test_singleton_methods
+        assert node_set = @xml.search('//name')
+        assert node_set.length > 0
+        node = node_set.first
+        def node.test
+          'test'
+        end
+        assert node_set = @xml.search('//name')
+        assert_equal 'test', node_set.first.test
       end
 
       def test_multiple_search

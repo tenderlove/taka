@@ -39,9 +39,23 @@ static VALUE evaluate(VALUE self, VALUE search_path)
   xmlChar* query = (xmlChar *)StringValuePtr(search_path);
   xmlXPathObjectPtr xpath = xmlXPathEvalExpression(query, ctx);
   if(xpath == NULL) {
-    rb_raise(rb_eRuntimeError, "Couldn't evaluate expression '%s'", query);
+    VALUE xpath = rb_const_get(mNokogiriXml, rb_intern("XPath"));
+    VALUE error = rb_const_get(xpath, rb_intern("SyntaxError"));
+    rb_raise(error, "Couldn't evaluate expression '%s'", query);
   }
-  return Nokogiri_wrap_xml_xpath(xpath);
+
+  VALUE xpath_object = Nokogiri_wrap_xml_xpath(xpath);
+
+  assert(ctx->node);
+  assert(ctx->node->doc);
+  assert(ctx->node->doc->_private);
+
+  rb_funcall( xpath_object,
+              rb_intern("document="),
+              1,
+              (VALUE)ctx->node->doc->_private
+            );
+  return xpath_object;
 }
 
 /*

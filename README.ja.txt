@@ -3,6 +3,8 @@
 * http://nokogiri.rubyforge.org/
 * http://github.com/tenderlove/nokogiri/wikis
 * http://github.com/tenderlove/nokogiri/tree/master
+* http://rubyforge.org/mailman/listinfo/nokogiri-talk
+* http://nokogiri.lighthouseapp.com/projects/19607-nokogiri/overview
 
 == DESCRIPTION:
 
@@ -16,12 +18,22 @@ Nokogiri はHTMLやXMLやSAXやXSLTやReaderのパーサーです。
 
 検索出来たり、正確にCSS3とXPathをサポート出来たりする。
 
-これはスピッドテストです：
+これはスピードテストです：
 
   * http://gist.github.com/22176
 
 NokogiriはHpricotの代わりに使用出来る。
 その互換性は簡単に正しいCSSとXPathを使用する事が出来る。
+
+== SUPPORT:
+
+ノコギリのメーリングリストは:
+
+  * http://rubyforge.org/mailman/listinfo/nokogiri-talk
+
+バグファイルは:
+
+  * http://nokogiri.lighthouseapp.com/projects/19607-nokogiri/overview
 
 == SYNOPSIS:
 
@@ -53,6 +65,7 @@ NokogiriはHpricotの代わりに使用出来る。
 
 * ruby 1.8 or 1.9
 * libxml
+* libxslt
 
 == INSTALL:
 
