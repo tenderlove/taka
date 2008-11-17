@@ -572,7 +572,7 @@ VALUE Nokogiri_wrap_xml_node(xmlNodePtr node)
       break;
     case XML_ATTRIBUTE_NODE:
       klass = rb_const_get(mNokogiriXml, rb_intern("Attr"));
-      rb_node = Data_Wrap_Struct(klass, gc_mark_node, deallocate, node) ;
+      rb_node = Data_Wrap_Struct(klass, 0, debug_node_dealloc, node) ;
       break;
     case XML_ENTITY_DECL:
       klass = rb_const_get(mNokogiriXml, rb_intern("EntityDeclaration"));
