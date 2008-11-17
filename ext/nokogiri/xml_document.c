@@ -62,6 +62,47 @@ static VALUE root(VALUE self)
   return Nokogiri_wrap_xml_node(root) ;
 }
 
+/*
+ * call-seq:
+ *  read_io(io, url, encoding, options)
+ *
+ * Create a new document from an IO object
+ */
+static VALUE read_io( VALUE klass,
+                      VALUE io,
+                      VALUE url,
+                      VALUE encoding,
+                      VALUE options )
+{
+  const char * c_url    = (url == Qnil) ? NULL : StringValuePtr(url);
+  const char * c_enc    = (encoding == Qnil) ? NULL : StringValuePtr(encoding);
+
+  xmlInitParser();
+
+  xmlDocPtr doc = xmlReadIO(
+      (xmlInputReadCallback)io_read_callback,
+      (xmlInputCloseCallback)io_close_callback,
+      (void *)io,
+      c_url,
+      c_enc,
+      NUM2INT(options)
+  );
+
+  if(doc == NULL) {
+    xmlFreeDoc(doc);
+    rb_raise(rb_eRuntimeError, "Couldn't create a document");
+    return Qnil;
+  }
+
+  return Nokogiri_wrap_xml_document(klass, doc);
+}
+
+/*
+ * call-seq:
+ *  read_memory(string, url, encoding, options)
+ *
+ * Create a new document from a String
+ */
 static VALUE read_memory( VALUE klass,
                           VALUE string,
                           VALUE url,
@@ -85,6 +126,12 @@ static VALUE read_memory( VALUE klass,
   return Nokogiri_wrap_xml_document(klass, doc);
 }
 
+/*
+ * call-seq:
+ *  new
+ *
+ * Create a new document
+ */
 static VALUE new(int argc, VALUE *argv, VALUE klass)
 {
   VALUE version;
@@ -97,7 +144,7 @@ static VALUE new(int argc, VALUE *argv, VALUE klass)
 
 /*
  *  call-seq:
- *    substitute_entities_set bool)
+ *    substitute_entities=(boolean)
  *
  *  Set the global XML default for substitute entities.
  */
@@ -109,7 +156,7 @@ static VALUE substitute_entities_set(VALUE klass, VALUE value)
 
 /*
  *  call-seq:
- *    substitute_entities_set bool)
+ *    load_external_subsets=(boolean)
  *
  *  Set the global XML default for load external subsets.
  */
@@ -122,9 +169,19 @@ static VALUE load_external_subsets_set(VALUE klass, VALUE value)
 VALUE cNokogiriXmlDocument ;
 void init_xml_document()
 {
-  VALUE klass = cNokogiriXmlDocument = rb_const_get(mNokogiriXml, rb_intern("Document"));
+  VALUE nokogiri = rb_define_module("Nokogiri");
+  VALUE xml = rb_define_module_under(nokogiri, "XML");
+  VALUE node = rb_define_class_under(xml, "Node", rb_cObject);
+
+  /*
+   * Nokogiri::XML::Document wraps an xml document.
+   */
+  VALUE klass = rb_define_class_under(xml, "Document", node);
+
+  cNokogiriXmlDocument = klass;
 
   rb_define_singleton_method(klass, "read_memory", read_memory, 4);
+  rb_define_singleton_method(klass, "read_io", read_io, 4);
   rb_define_singleton_method(klass, "new", new, -1);
   rb_define_singleton_method(klass, "substitute_entities=", substitute_entities_set, 1);
   rb_define_singleton_method(klass, "load_external_subsets=", load_external_subsets_set, 1);

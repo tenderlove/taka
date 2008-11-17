@@ -3,8 +3,9 @@ module Nokogiri
     class Document < Node
       include DOM::Document
 
-      def decorators
-        @decorators ||= Hash.new { |h,k| h[k] = [] }
+      def decorators(key)
+        @decorators ||= Hash.new
+        @decorators[key] ||= []
       end
 
       def name
@@ -19,7 +20,7 @@ module Nokogiri
       # Apply any decorators to +node+
       def decorate(node)
         key = node.class.name.split('::').last.downcase
-        decorators[key].each do |klass|
+        decorators(key).each do |klass|
           node.extend(klass)
         end
       end

@@ -16,6 +16,11 @@ module Nokogiri
         add_decorators(doc)
       end
 
+      def HTML(string)
+        doc = Nokogiri::HTML.parse(string)
+        add_decorators(doc)
+      end
+
       def make string
         doc = XML::Document.new
         ns = XML::NodeSet.new(doc)
@@ -24,10 +29,10 @@ module Nokogiri
       end
 
       def add_decorators(doc)
-        doc.decorators['node'] << Decorators::Hpricot::Node
-        doc.decorators['element'] << Decorators::Hpricot::Node
-        doc.decorators['document'] << Decorators::Hpricot::Node
-        doc.decorators['nodeset'] << Decorators::Hpricot::NodeSet
+        doc.decorators('node') << Decorators::Hpricot::Node
+        doc.decorators('element') << Decorators::Hpricot::Node
+        doc.decorators('document') << Decorators::Hpricot::Node
+        doc.decorators('nodeset') << Decorators::Hpricot::NodeSet
         doc.decorate!
         doc
       end
@@ -40,7 +45,7 @@ module Nokogiri
         builder = Nokogiri::HTML::Builder.new(&block)
         Nokogiri::Hpricot.add_decorators(builder.doc)
       else
-        doc = Nokogiri::HTML.parse(*args)
+        doc = Nokogiri.parse(*args)
         Nokogiri::Hpricot.add_decorators(doc)
       end
     end
