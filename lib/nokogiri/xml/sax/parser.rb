@@ -11,13 +11,17 @@ module Nokogiri
         # Parse given +thing+ which may be a string containing xml, or an
         # IO object.
         def parse thing
-          parse_memory(thing.is_a?(IO) ? thing.read : thing)
+          if thing.respond_to?(:read) && thing.respond_to?(:close)
+            parse_io(thing)
+          else
+            parse_memory(thing)
+          end
         end
 
         ###
         # Parse given +io+
-        def parse_io io
-          parse_memory io.read
+        def parse_io io, encoding = 0
+          native_parse_io io, encoding
         end
 
         ###
