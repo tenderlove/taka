@@ -67,7 +67,12 @@ module Nokogiri
       end
 
       def insertBefore(newChild, refChild)
-        raise(NotImplementedError.new)
+        unless refChild
+          newChild.parent = self
+        else
+          raise(NotImplementedError.new)
+        end
+        newChild
       end
 
       def replaceChild(newChild, oldChild)
