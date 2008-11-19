@@ -28,12 +28,15 @@ module Nokogiri
       def createTextNode(data)
         raise(NotImplementedError.new)
       end
+
       def createComment(data)
-        raise(NotImplementedError.new)
+        XML::Comment.new(self, data)
       end
+
       def createCDATASection(data)
-        raise(NotImplementedError.new)
+        XML::CDATA.new(self, data)
       end
+
       def createProcessingInstruction(target, data)
         raise(NotImplementedError.new)
       end
