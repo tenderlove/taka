@@ -10,6 +10,10 @@ module Nokogiri
         self.children.first.to_s
       end
       alias :to_s :value
+
+      def specified
+        true
+      end
     end
   end
 end

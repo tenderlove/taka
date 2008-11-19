@@ -3,6 +3,12 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', "helper"))
 module Nokogiri
   module XML
     class TestNode < Nokogiri::TestCase
+      def test_new_node_value
+        xml = Nokogiri::XML.parse(File.read(XML_FILE), XML_FILE)
+        node = Node.new('test', xml)
+        assert_nil node.content
+      end
+
       def test_find_by_css_with_tilde_eql
         xml = Nokogiri::XML.parse(<<-eoxml)
         <root>

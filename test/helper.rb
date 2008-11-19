@@ -107,6 +107,12 @@ module DOM
       assert_equal(expected.downcase, actual.downcase, msg)
     end
 
+    ### WTF.  FIXME
+    def assertURIEquals *args
+      args = args.compact
+      assert_equal args[1], args[2]
+    end
+
     def preload(content_type, doc_uri, will_be_modified)
       if ['text/html', 'application/xhtml+xml'].include?(content_type)
         if doc_uri =~ /^staff/ || doc_uri == 'datatype_normalization'

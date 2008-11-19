@@ -14,7 +14,7 @@ module Nokogiri
       end
 
       def removeAttribute(name)
-        raise(NotImplementedError.new)
+        self.remove_attribute(name)
       end
 
       def getAttributeNode(name)

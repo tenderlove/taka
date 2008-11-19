@@ -18,7 +18,7 @@ module Nokogiri
       end
 
       def createElement(tagName)
-        raise(NotImplementedError.new)
+        XML::Node.new(tagName, self)
       end
 
       def createDocumentFragment
