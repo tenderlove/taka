@@ -29,12 +29,28 @@ rule
                     Node.new(:CONDITIONAL_SELECTOR, [val.first, val[1]])
                   end
       }
+    | element_name hcap_1toN negation {
+        result = Node.new(:CONDITIONAL_SELECTOR,
+          [
+            val.first,
+            Node.new(:COMBINATOR, [val[1], val.last])
+          ]
+        )
+      }
     | element_name negation {
         result = Node.new(:CONDITIONAL_SELECTOR, val)
       }
     | function
     | function attrib {
         result = Node.new(:CONDITIONAL_SELECTOR, val)
+      }
+    | hcap_1toN negation {
+        result = Node.new(:CONDITIONAL_SELECTOR,
+          [
+            Node.new(:ELEMENT_NAME, ['*']),
+            Node.new(:COMBINATOR, val)
+          ]
+        )
       }
     | hcap_1toN {
         result = Node.new(:CONDITIONAL_SELECTOR,

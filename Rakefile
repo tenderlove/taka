@@ -30,7 +30,7 @@ HOE = Hoe.new('nokogiri', Nokogiri::VERSION) do |p|
     GENERATED_TOKENIZER,
     'cross',
   ]
-  p.spec_extras = { :extensions => ["Rakefile"] }
+  p.spec_extras = { :extensions => ["ext/nokogiri/extconf.rb"] }
 end
 
 namespace :gem do
@@ -278,6 +278,14 @@ namespace :test do
   task :gc => :build do
     ENV['NOKOGIRI_GC'] = "true"
     Rake::Task["test"].invoke
+  end
+
+  desc "find call-seq in the rdoc"
+  task :rdoc => 'docs' do
+    Dir['doc/**/*.html'].each { |docfile|
+      next if docfile =~ /\.src/
+      puts "FAIL: #{docfile}" if File.read(docfile) =~ /call-seq/
+    }
   end
 end
 

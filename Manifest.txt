@@ -39,6 +39,7 @@ ext/nokogiri/xml_xpath_context.c
 ext/nokogiri/xml_xpath_context.h
 ext/nokogiri/xslt_stylesheet.c
 ext/nokogiri/xslt_stylesheet.h
+lib/action-nokogiri.rb
 lib/nokogiri.rb
 lib/nokogiri/css.rb
 lib/nokogiri/css/generated_parser.rb
@@ -51,7 +52,6 @@ lib/nokogiri/css/tokenizer.rb
 lib/nokogiri/css/tokenizer.rex
 lib/nokogiri/css/xpath_visitor.rb
 lib/nokogiri/decorators.rb
-lib/nokogiri/decorators/slop.rb
 lib/nokogiri/decorators/hpricot.rb
 lib/nokogiri/decorators/hpricot/node.rb
 lib/nokogiri/decorators/hpricot/node_set.rb
@@ -65,6 +65,7 @@ lib/nokogiri/dom/node.rb
 lib/nokogiri/dom/node_set.rb
 lib/nokogiri/dom/notation.rb
 lib/nokogiri/dom/text.rb
+lib/nokogiri/decorators/slop.rb
 lib/nokogiri/hpricot.rb
 lib/nokogiri/html.rb
 lib/nokogiri/html/builder.rb
