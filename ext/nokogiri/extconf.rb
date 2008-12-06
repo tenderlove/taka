@@ -21,8 +21,18 @@ if Config::CONFIG['target_os'] == 'mingw32'
   find_library('xslt', 'xsltParseStylesheetDoc',
                File.join(ROOT, 'cross', 'libxslt-1.1.24.win32', 'bin'))
 else
-  find_library('xml2', 'xmlParseDoc', LIBDIR)
-  find_library('xslt', 'xsltParseStylesheetDoc', LIBDIR)
+  find_library('xml2', 'xmlParseDoc',
+               LIBDIR,
+               '/opt/local/lib',
+               '/usr/local/lib',
+               '/usr/lib'
+    )
+  find_library('xslt', 'xsltParseStylesheetDoc',
+               LIBDIR,
+               '/opt/local/lib',
+               '/usr/local/lib',
+               '/usr/lib'
+              )
 end
 
 
@@ -43,11 +53,19 @@ if Config::CONFIG['target_os'] == 'mingw32'
   end
 else
   unless find_header('libxml/xmlversion.h',
-                     File.join(INCLUDEDIR, "libxml2"), '/usr/include/libxml2'
+                     File.join(INCLUDEDIR, "libxml2"),
+                     '/opt/local/include/libxml2',
+                     '/usr/local/include/libxml2',
+                     '/usr/include/libxml2'
                     )
     abort "need libxml"
   end
-  unless find_header('libxslt/xslt.h', INCLUDEDIR, '/usr/include')
+  unless find_header('libxslt/xslt.h',
+                     INCLUDEDIR,
+                     '/opt/local/include',
+                     '/usr/local/include',
+                     '/usr/include'
+                    )
     abort "need libxslt"
   end
 
