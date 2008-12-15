@@ -14,7 +14,7 @@ module Nokogiri
       end
 
       def documentElement
-        document
+        root
       end
 
       def createElement(tagName)
