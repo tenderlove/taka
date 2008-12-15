@@ -54,6 +54,7 @@ module Nokogiri
       end
 
       def nextSibling
+        return nil if self == parent.children.last
         next_sibling
       end
 
