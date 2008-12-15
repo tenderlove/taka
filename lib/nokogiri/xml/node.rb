@@ -71,6 +71,7 @@ module Nokogiri
       #   node.xpath('.//xmlns:name', node.root.namespaces)
       #
       def xpath *paths
+        handler = paths.last.is_a?(XPathHandler) ? paths.pop : nil
         ns = paths.last.is_a?(Hash) ? paths.pop : {}
 
         return NodeSet.new(document) unless document.root
@@ -78,7 +79,7 @@ module Nokogiri
         sets = paths.map { |path|
           ctx = XPathContext.new(self)
           ctx.register_namespaces(ns)
-          set = ctx.evaluate(path).node_set
+          set = ctx.evaluate(path, handler).node_set
           set.document = document
           document.decorate(set)
           set
@@ -104,7 +105,14 @@ module Nokogiri
       #   node.css('div + p.green', 'div#one')
       #
       def css *rules
-        xpath(*(rules.map { |rule| CSS.xpath_for(rule, :prefix => ".//") }.flatten.uniq))
+        handler = rules.last.is_a?(XPathHandler) ? rules.pop : nil
+        ns = rules.last.is_a?(Hash) ? rules.pop : {}
+
+        rules = rules.map { |rule|
+          CSS.xpath_for(rule, :prefix => ".//")
+        }.flatten.uniq + [ns, handler].compact
+
+        xpath(*rules)
       end
 
       def at path, ns = {}

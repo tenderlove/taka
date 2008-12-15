@@ -29,8 +29,11 @@ module Nokogiri
           "position() > #{node.value[1]}"
         when /^only-child\(/
           "last() = 1"
+        when /^comment\(/
+          "comment()"
         else
-          node.value.first + ')'
+          args = ['.'] + node.value[1..-1]
+          "#{node.value.first}#{args.join(', ')})"
         end
       end
 
@@ -106,7 +109,7 @@ module Nokogiri
           when "parent" then "node()"
           when "root" then "not(parent::*)"
           else
-            '1 = 1'
+            node.value.first + "(.)"
           end
         end
       end
