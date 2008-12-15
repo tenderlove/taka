@@ -71,7 +71,7 @@ module Nokogiri
         unless refChild
           newChild.parent = self
         else
-          raise(NotImplementedError.new)
+          refChild.add_previous_sibling newChild
         end
         newChild
       end
