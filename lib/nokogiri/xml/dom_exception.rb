@@ -2,6 +2,7 @@ module Nokogiri
   module XML
     class DOMException < StandardError
       HIERARCHY_REQUEST_ERR = 0
+      WRONG_DOCUMENT_ERR    = 1
 
       attr_accessor :code
 

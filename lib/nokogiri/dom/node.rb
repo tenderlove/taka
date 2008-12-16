@@ -79,8 +79,14 @@ module Nokogiri
         new_child
       end
 
-      def replaceChild(newChild, oldChild)
-        raise(NotImplementedError.new)
+      def replaceChild new_child, old_child
+        if self.document != new_child.document
+          raise XML::DOMException.new(XML::DOMException::WRONG_DOCUMENT_ERR)
+        end
+        if ancestors.include?(new_child)
+          raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
+        end
+        old_child.replace new_child
       end
 
       def removeChild old_child
