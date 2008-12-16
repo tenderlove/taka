@@ -25,8 +25,8 @@ module Nokogiri
         raise(NotImplementedError.new)
       end
 
-      def createTextNode(data)
-        raise(NotImplementedError.new)
+      def createTextNode data
+        XML::Text.new(data, self)
       end
 
       def createComment(data)
