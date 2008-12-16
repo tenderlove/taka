@@ -86,6 +86,9 @@ module Nokogiri
         if ancestors.include?(new_child)
           raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
         end
+        unless children.include?(old_child)
+          raise XML::DOMException.new(XML::DOMException::NOT_FOUND_ERR)
+        end
         old_child.replace new_child
       end
 
