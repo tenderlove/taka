@@ -67,13 +67,16 @@ module Nokogiri
         document
       end
 
-      def insertBefore(newChild, refChild)
-        unless refChild
-          newChild.parent = self
-        else
-          refChild.add_previous_sibling newChild
+      def insertBefore new_child, ref_child
+        if ancestors.include?(new_child)
+          raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
         end
-        newChild
+        unless ref_child
+          new_child.parent = self
+        else
+          ref_child.add_previous_sibling new_child
+        end
+        new_child
       end
 
       def replaceChild(newChild, oldChild)
