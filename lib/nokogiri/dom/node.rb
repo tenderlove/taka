@@ -84,8 +84,11 @@ module Nokogiri
         old_child.remove
       end
 
-      def appendChild(newChild)
-        raise(NotImplementedError.new)
+      def appendChild new_child
+        if ancestors.include?(new_child)
+          raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
+        end
+        new_child.parent = self
       end
 
       def hasChildNodes
