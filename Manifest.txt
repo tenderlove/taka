@@ -648,6 +648,8 @@ test/dom/level1/core/test_textsplittextthree.rb
 test/dom/level1/core/test_textsplittexttwo.rb
 test/dom/level1/core/test_textwithnomarkup.rb
 test/files/dont_hurt_em_why.xml
+test/files/exslt.xml
+test/files/exslt.xslt
 test/files/staff.xml
 test/files/staff.xslt
 test/files/tlm.html
