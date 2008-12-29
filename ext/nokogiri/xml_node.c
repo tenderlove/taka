@@ -269,11 +269,12 @@ static VALUE attr(VALUE self, VALUE name)
 
 /*
  *  call-seq:
- *    attributes()
+ *    properties()
  *
- *  returns a hash containing the node's attributes.
+ *  returns a hash containing the Node properties.  The key is the attribute
+ *  name, the value is a Attr node.
  */
-static VALUE attributes(VALUE self)
+static VALUE properties(VALUE self)
 {
   /* this code in the mode of xmlHasProp() */
   xmlNodePtr node ;
@@ -697,7 +698,7 @@ void init_xml_node()
   rb_define_method(klass, "blank?", blank_eh, 0);
   rb_define_method(klass, "[]=", set, 2);
   rb_define_method(klass, "remove_attribute", remove_prop, 1);
-  rb_define_method(klass, "attributes", attributes, 0);
+  rb_define_method(klass, "properties", properties, 0);
   rb_define_method(klass, "attribute", attr, 1);
   rb_define_method(klass, "namespaces", namespaces, 0);
   rb_define_method(klass, "add_previous_sibling", add_previous_sibling, 1);

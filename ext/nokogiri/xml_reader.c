@@ -78,11 +78,11 @@ static VALUE attributes_eh(VALUE self)
 
 /*
  * call-seq:
- *   attributes
+ *   properties
  *
  * Get a Hash of attributes for this node
  */
-static VALUE attributes(VALUE self)
+static VALUE properties(VALUE self)
 {
   xmlTextReaderPtr reader;
   VALUE attr ;
@@ -102,6 +102,7 @@ static VALUE attributes(VALUE self)
   // the node wrapping code.
   if(!ptr->doc->_private) {
     VALUE rb_doc = Data_Wrap_Struct(cNokogiriXmlDocument, 0, 0, ptr->doc);
+    rb_iv_set(rb_doc, "@decorators", Qnil);
     ptr->doc->_private = (void *)rb_doc;
   }
 
@@ -431,7 +432,7 @@ void init_xml_reader()
   rb_define_method(klass, "attribute_count", attribute_count, 0);
   rb_define_method(klass, "attribute", reader_attribute, 1);
   rb_define_method(klass, "attribute_at", attribute_at, 1);
-  rb_define_method(klass, "attributes", attributes, 0);
+  rb_define_method(klass, "properties", properties, 0);
   rb_define_method(klass, "attributes?", attributes_eh, 0);
   rb_define_method(klass, "value?", value_eh, 0);
   rb_define_method(klass, "default?", default_eh, 0);
