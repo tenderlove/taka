@@ -18,6 +18,7 @@ require 'nokogiri/xml/syntax_error'
 require 'nokogiri/xml/notation'
 require 'nokogiri/xml/element'
 require 'nokogiri/xml/entity_declaration'
+require 'nokogiri/xml/named_node_map'
 
 module Nokogiri
   class << self

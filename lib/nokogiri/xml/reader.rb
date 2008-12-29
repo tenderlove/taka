@@ -9,6 +9,10 @@ module Nokogiri
         end
       end
       private :initialize
+
+      def attributes
+        Hash[*(properties.map { |name,node| [name, node.to_s] }.flatten)]
+      end
     end
   end
 end
