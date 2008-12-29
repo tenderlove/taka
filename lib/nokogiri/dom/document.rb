@@ -45,9 +45,10 @@ module Nokogiri
         Nokogiri::XML::Attr.new(self, name)
       end
 
-      def createEntityReference(name)
-        raise(NotImplementedError.new)
+      def createEntityReference name
+        Nokogiri::XML::EntityReference.new(self, name)
       end
+
       def importNode(importedNode, deep)
         raise(NotImplementedError.new)
       end
