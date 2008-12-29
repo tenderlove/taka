@@ -40,9 +40,11 @@ module Nokogiri
       def createProcessingInstruction(target, data)
         raise(NotImplementedError.new)
       end
-      def createAttribute(name)
-        raise(NotImplementedError.new)
+
+      def createAttribute name
+        Nokogiri::XML::Attr.new(name, self)
       end
+
       def createEntityReference(name)
         raise(NotImplementedError.new)
       end
