@@ -42,7 +42,7 @@ module Nokogiri
       end
 
       def createAttribute name
-        Nokogiri::XML::Attr.new(name, self)
+        Nokogiri::XML::Attr.new(self, name)
       end
 
       def createEntityReference(name)
