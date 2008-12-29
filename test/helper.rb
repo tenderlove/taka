@@ -118,6 +118,11 @@ module DOM
       assert_equal args[1], args[2]
     end
 
+    ### FIXME not sure how this assertion is supposed to work
+    def assertEqualsAutoCase one, two, expected, actual
+      assert_equal expected, actual
+    end
+
     def preload(content_type, doc_uri, will_be_modified)
       if ['text/html', 'application/xhtml+xml'].include?(content_type)
         if doc_uri =~ /^staff/ || doc_uri == 'datatype_normalization'
