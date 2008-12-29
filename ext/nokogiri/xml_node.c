@@ -251,6 +251,23 @@ static VALUE get(VALUE self, VALUE attribute)
 }
 
 /*
+ * call-seq:
+ *   attribute(name)
+ *
+ * Get the attribute node with +name+
+ */
+static VALUE attr(VALUE self, VALUE name)
+{
+  xmlNodePtr node;
+  xmlAttrPtr prop;
+  Data_Get_Struct(self, xmlNode, node);
+  prop = xmlHasProp(node, (xmlChar *)StringValuePtr(name));
+
+  if(! prop) return Qnil;
+  return Nokogiri_wrap_xml_node((xmlNodePtr)prop);
+}
+
+/*
  *  call-seq:
  *    attributes()
  *
@@ -258,16 +275,21 @@ static VALUE get(VALUE self, VALUE attribute)
  */
 static VALUE attributes(VALUE self)
 {
-    /* this code in the mode of xmlHasProp() */
-    xmlNodePtr node ;
-    VALUE attr ;
+  /* this code in the mode of xmlHasProp() */
+  xmlNodePtr node ;
+  VALUE attr ;
 
-    attr = rb_hash_new() ;
-    Data_Get_Struct(self, xmlNode, node);
+  attr = rb_hash_new() ;
+  Data_Get_Struct(self, xmlNode, node);
 
-    Nokogiri_xml_node_properties(node, attr);
+  Nokogiri_xml_node_properties(node, attr);
 
-    return attr ;
+  VALUE named_node_map =
+    rb_const_get(mNokogiriXml, rb_intern("NamedNodeMap"));
+
+  if(0 == NUM2INT(rb_funcall(attr, rb_intern("length"), 0))) return Qnil;
+
+  return rb_funcall(named_node_map, rb_intern("new"), 1, attr);
 }
 
 /*
@@ -567,6 +589,10 @@ VALUE Nokogiri_wrap_xml_node(xmlNodePtr node)
       klass = rb_const_get(mNokogiriXml, rb_intern("Element"));
       rb_node = Data_Wrap_Struct(klass, 0, debug_node_dealloc, node) ;
       break;
+    case XML_ATTRIBUTE_NODE:
+      klass = rb_const_get(mNokogiriXml, rb_intern("Attr"));
+      rb_node = Data_Wrap_Struct(klass, 0, debug_node_dealloc, node) ;
+      break;
     case XML_ENTITY_DECL:
       klass = rb_const_get(mNokogiriXml, rb_intern("EntityDeclaration"));
       rb_node = Data_Wrap_Struct(klass, 0, debug_node_dealloc, node) ;
@@ -596,10 +622,8 @@ void Nokogiri_xml_node_properties(xmlNodePtr node, VALUE attr_hash)
   xmlChar* propstr ;
   prop = node->properties ;
   while (prop != NULL) {
-    propstr = xmlGetProp(node, prop->name) ;
     rb_hash_aset(attr_hash, rb_str_new2((const char*)prop->name),
-                 rb_str_new2((char*)propstr));
-    xmlFree(propstr);
+      Nokogiri_wrap_xml_node((xmlNodePtr)prop));
     prop = prop->next ;
   }
 }
@@ -674,6 +698,7 @@ void init_xml_node()
   rb_define_method(klass, "[]=", set, 2);
   rb_define_method(klass, "remove_attribute", remove_prop, 1);
   rb_define_method(klass, "attributes", attributes, 0);
+  rb_define_method(klass, "attribute", attr, 1);
   rb_define_method(klass, "namespaces", namespaces, 0);
   rb_define_method(klass, "add_previous_sibling", add_previous_sibling, 1);
   rb_define_method(klass, "add_next_sibling", add_next_sibling, 1);

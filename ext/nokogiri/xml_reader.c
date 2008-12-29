@@ -97,6 +97,14 @@ static VALUE attributes(VALUE self)
   xmlNodePtr ptr = xmlTextReaderExpand(reader);
   if(ptr == NULL) return Qnil;
 
+  // FIXME I'm not sure if this is correct.....  I don't really like pointing
+  // at this document, but I have to because of the assertions in
+  // the node wrapping code.
+  if(!ptr->doc->_private) {
+    VALUE rb_doc = Data_Wrap_Struct(cNokogiriXmlDocument, 0, 0, ptr->doc);
+    ptr->doc->_private = (void *)rb_doc;
+  }
+
   Nokogiri_xml_node_namespaces(ptr, attr);
   Nokogiri_xml_node_properties(ptr, attr);
 
