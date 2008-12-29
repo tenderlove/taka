@@ -620,7 +620,6 @@ VALUE Nokogiri_wrap_xml_node(xmlNodePtr node)
 void Nokogiri_xml_node_properties(xmlNodePtr node, VALUE attr_hash)
 {
   xmlAttrPtr prop;
-  xmlChar* propstr ;
   prop = node->properties ;
   while (prop != NULL) {
     rb_hash_aset(attr_hash, rb_str_new2((const char*)prop->name),
