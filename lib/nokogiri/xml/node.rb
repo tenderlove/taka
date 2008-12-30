@@ -185,9 +185,9 @@ module Nokogiri
       # attribute name, the value is the string value of the attribute.
       def attributes
         return nil unless attribute_nodes
-        Hash[*(attribute_nodes.map { |node|
-          [node.name, get(node.name)]
-        }.flatten)]
+        NamedNodeMap.new(Hash[*(attribute_nodes.map { |node|
+          [node.name, node]
+        }.flatten)])
       end
 
       def has_attribute?(property)

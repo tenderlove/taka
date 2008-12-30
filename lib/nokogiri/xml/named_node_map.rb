@@ -24,7 +24,7 @@ module Nokogiri
       end
 
       def item index
-        self[self.keys[index]]
+        @datasource[self.keys[index]]
       end
 
       def method_missing(*args, &block)
