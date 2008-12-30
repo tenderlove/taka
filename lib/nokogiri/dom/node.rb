@@ -68,9 +68,14 @@ module Nokogiri
       end
 
       def insertBefore new_child, ref_child
+        unless children.include?(ref_child)
+          raise XML::DOMException.new(XML::DOMException::NOT_FOUND_ERR)
+        end
+
         if ancestors.include?(new_child)
           raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
         end
+
         unless ref_child
           new_child.parent = self
         else
