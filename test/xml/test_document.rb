@@ -12,6 +12,10 @@ module Nokogiri
         assert xml.xml?
       end
 
+      def test_attributes
+        assert_nil @xml.attributes
+      end
+
       def test_document_parent
         xml = Nokogiri::XML(File.read(XML_FILE), XML_FILE)
         assert_raises(NoMethodError) {

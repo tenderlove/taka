@@ -36,6 +36,10 @@ module Nokogiri
         }
       end
 
+      def attributes
+        nil
+      end
+
       def node_cache
         @node_cache ||= {}
       end
