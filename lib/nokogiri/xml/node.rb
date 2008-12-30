@@ -181,7 +181,9 @@ module Nokogiri
       # Returns a hash containing the node's attributes.  The key is the
       # attribute name, the value is the string value of the attribute.
       def attributes
-        Hash[*(properties.map { |name,prop| [name, get(name)] }.flatten)]
+        Hash[*(attribute_nodes.map { |node|
+          [node.name, get(node.name)]
+        }.flatten)]
       end
 
       def has_attribute?(property)
