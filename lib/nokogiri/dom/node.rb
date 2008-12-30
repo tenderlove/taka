@@ -68,7 +68,7 @@ module Nokogiri
       end
 
       def insertBefore new_child, ref_child
-        unless children.include?(ref_child)
+        if ref_child && !children.include?(ref_child)
           raise XML::DOMException.new(XML::DOMException::NOT_FOUND_ERR)
         end
 
