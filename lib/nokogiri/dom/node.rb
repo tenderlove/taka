@@ -113,7 +113,7 @@ module Nokogiri
       end
 
       def hasChildNodes
-        children.empty?
+        !children.empty?
       end
 
       def cloneNode(deep)
