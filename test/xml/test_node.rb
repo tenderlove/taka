@@ -11,6 +11,20 @@ module Nokogiri
           address.ancestors.map { |x| x.name }
       end
 
+      def test_angry_add_child
+        xml = Nokogiri::XML.parse(File.read(XML_FILE), XML_FILE)
+        child = xml.css('employee').first
+
+        assert new_child = child.children.first
+
+        last = child.children.last
+
+        # Magic!  Don't try this at home folks
+        child.add_child(new_child)
+        assert_equal new_child, child.children.last
+        assert_equal last, child.children.last
+      end
+
       def test_add_child
         xml = Nokogiri::XML(<<-eoxml)
         <root>
@@ -46,6 +60,42 @@ module Nokogiri
         a_node = xml.xpath('//a').first
         a_node.add_previous_sibling(b_node)
         assert_equal('first', xml.xpath('//a').first.text)
+      end
+
+      def test_add_previous_sibling_merge
+        xml = Nokogiri::XML(<<-eoxml)
+        <root>
+          <a>Hello world</a>
+        </root>
+        eoxml
+
+        assert a_tag = xml.css('a').first
+
+        left_space = a_tag.previous
+        right_space = a_tag.next
+        assert left_space.text?
+        assert right_space.text?
+
+        left_space.add_previous_sibling(right_space)
+        assert_equal left_space, right_space
+      end
+
+      def test_add_next_sibling_merge
+        xml = Nokogiri::XML(<<-eoxml)
+        <root>
+          <a>Hello world</a>
+        </root>
+        eoxml
+
+        assert a_tag = xml.css('a').first
+
+        left_space = a_tag.previous
+        right_space = a_tag.next
+        assert left_space.text?
+        assert right_space.text?
+
+        right_space.add_next_sibling(left_space)
+        assert_equal left_space, right_space
       end
 
       def test_find_by_css_with_tilde_eql

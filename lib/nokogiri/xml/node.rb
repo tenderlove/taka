@@ -159,6 +159,10 @@ module Nokogiri
         next_sibling
       end
 
+      def previous
+        previous_sibling
+      end
+
       def remove
         unlink
       end
@@ -256,6 +260,10 @@ module Nokogiri
       end
       alias :elem? :element?
 
+      def text?
+        type == TEXT_NODE
+      end
+
       def to_s
         xml? ? to_xml : to_html
       end
@@ -309,6 +317,12 @@ Node.replace requires a Node argument, and cannot accept a Document.
           EOERR
         end
         replace_with_node new_node
+      end
+
+      def == other
+        return false unless other
+        return false unless other.respond_to?(:pointer_id)
+        pointer_id == other.pointer_id
       end
     end
   end
