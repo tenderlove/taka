@@ -78,9 +78,35 @@ static VALUE attributes_eh(VALUE self)
 
 /*
  * call-seq:
+ *   namespaces
+ *
+ * Get a hash of namespaces for this Node
+ */
+static VALUE namespaces(VALUE self)
+{
+  xmlTextReaderPtr reader;
+  VALUE attr ;
+
+  Data_Get_Struct(self, xmlTextReader, reader);
+
+  attr = rb_ary_new() ;
+
+  if (! has_attributes(reader))
+    return attr ;
+
+  xmlNodePtr ptr = xmlTextReaderExpand(reader);
+  if(ptr == NULL) return Qnil;
+
+  Nokogiri_xml_node_namespaces(ptr, attr);
+
+  return attr ;
+}
+
+/*
+ * call-seq:
  *   attribute_nodes
  *
- * Get a list of Attr nodes for this Node
+ * Get a list of attributes for this Node
  */
 static VALUE attribute_nodes(VALUE self)
 {
@@ -109,26 +135,6 @@ static VALUE attribute_nodes(VALUE self)
   Nokogiri_xml_node_properties(ptr, attr);
 
   return attr ;
-}
-
-/*
- *  call-seq:
- *    namespaces()
- *
- *  returns a hash containing the node's namespaces.
- */
-static VALUE namespaces(VALUE self)
-{
-  xmlTextReaderPtr reader;
-  VALUE attr = rb_hash_new();
-
-  Data_Get_Struct(self, xmlTextReader, reader);
-
-  xmlNodePtr ptr = xmlTextReaderExpand(reader);
-  if(ptr == NULL) return Qnil;
-
-  Nokogiri_xml_node_namespaces(ptr, attr);
-  return attr;
 }
 
 /*

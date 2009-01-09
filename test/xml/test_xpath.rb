@@ -6,7 +6,7 @@ module Nokogiri
       def setup
         @xml = Nokogiri::XML.parse(File.read(XML_FILE), XML_FILE)
 
-        @handler = Class.new(XPathHandler) {
+        @handler = Class.new {
           attr_reader :things
 
           def initialize
@@ -92,6 +92,13 @@ module Nokogiri
         @xml.xpath('//employee[returns_array(name)]', @handler)
         assert_equal(set.length, @handler.things.length)
         assert_equal(set.to_a, @handler.things.flatten)
+      end
+
+      def test_code_that_invokes_OP_RESET_inside_libxml2
+        doc = "<html><body id='foo'><foo>hi</foo></body></html>"
+        xpath = 'id("foo")//foo'
+        nokogiri = Nokogiri::HTML.parse(doc)
+        tree = nokogiri.xpath(xpath)
       end
     end
   end

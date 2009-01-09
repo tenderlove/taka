@@ -179,9 +179,9 @@ module Nokogiri
         assert node = xml.search('//address')[2]
         attr = node.attributes
         assert_equal 2, attr.size
-
-        assert_equal 'Yes', attr['domestic']
-        assert_equal 'No', attr['street']
+        assert_equal 'Yes', attr['domestic'].value
+        assert_equal 'Yes', attr['domestic'].to_s
+        assert_equal 'No', attr['street'].value
       end
 
       def test_set_attribute
@@ -201,6 +201,15 @@ module Nokogiri
         assert_equal('/staff/employee[1]', node.path)
       end
 
+      def test_search_by_symbol
+        xml = Nokogiri::XML.parse(File.read(XML_FILE), XML_FILE)
+        assert set = xml.search(:employee)
+        assert 5, set.length
+
+        assert node = xml.at(:employee)
+        assert node.text =~ /EMP0001/
+      end
+
       def test_new_node
         xml = Nokogiri::XML.parse(File.read(XML_FILE), XML_FILE)
         node = Nokogiri::XML::Node.new('form', xml)
@@ -215,6 +224,13 @@ module Nokogiri
 
         node.content = 'hello world!'
         assert_equal('hello world!', node.content)
+      end
+
+      def test_whitespace_nodes
+        doc = Nokogiri::XML.parse("<root><b>Foo</b>\n<i>Bar</i> <p>Bazz</p></root>")
+        children = doc.at('//root').children.collect{|j| j.to_s}
+        assert_equal "\n", children[1]
+        assert_equal " ", children[3]
       end
 
       def test_replace
@@ -289,6 +305,24 @@ EOF
         assert_equal "hello a", xml.search("//a:div", xml.namespaces).first.inner_text
         assert_equal "hello b", xml.search("//b:div", xml.namespaces).first.inner_text
         assert_equal "hello c", xml.search("//c:div", xml.namespaces).first.inner_text
+      end
+
+      def test_namespace
+        xml = Nokogiri::XML.parse(<<-EOF)
+<x xmlns:a='http://foo.com/' xmlns:b='http://bar.com/'>
+  <y xmlns:c='http://bazz.com/'>
+    <a:div>hello a</a:div>
+    <b:div>hello b</b:div>
+    <c:div>hello c</c:div>
+    <div>hello moon</div>
+  </y>  
+</x>
+EOF
+        set = xml.search("//y/*")
+        assert_equal "a", set[0].namespace
+        assert_equal "b", set[1].namespace
+        assert_equal "c", set[2].namespace
+        assert_equal nil, set[3].namespace
       end
 
     end

@@ -154,6 +154,12 @@ module Nokogiri
       alias :text :inner_text
 
       ###
+      # Get the inner html of all contained Node objects
+      def inner_html
+        collect{|j| j.inner_html}.join('')
+      end
+
+      ###
       # Wrap this NodeSet with +html+ or the results of the builder in +blk+
       def wrap(html, &blk)
         each do |j|
@@ -174,6 +180,10 @@ module Nokogiri
 
       def to_html
         map { |x| x.to_html }.join('')
+      end
+
+      def to_xml *args
+        map { |x| x.to_xml(*args) }.join('')
       end
 
       def size
