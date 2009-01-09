@@ -15,12 +15,6 @@ module Nokogiri
         end
       end
       private :initialize
-
-      def attributes
-        Hash[*(attribute_nodes.map { |node|
-          [node.name, node.to_s]
-        }.flatten)].merge(namespaces || {})
-      end
     end
   end
 end

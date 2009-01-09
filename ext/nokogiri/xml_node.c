@@ -249,7 +249,7 @@ static VALUE get(VALUE self, VALUE attribute)
 
   propstr = xmlGetProp(node, (xmlChar *)StringValuePtr(attribute));
 
-  if(propstr == Qnil) return Qnil;
+  if(NULL == propstr) return Qnil;
 
   rval = rb_str_new2((char *)propstr) ;
   xmlFree(propstr);
