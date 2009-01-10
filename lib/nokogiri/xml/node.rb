@@ -176,6 +176,7 @@ module Nokogiri
           [node.name, node]
         }.flatten)]
         hash.extend(DOM::NamedNodeMap)
+        hash.document = document
         hash
       end
 
