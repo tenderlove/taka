@@ -172,9 +172,11 @@ module Nokogiri
       # attribute name, the value is the string value of the attribute.
       def attributes
         return nil unless attribute_nodes
-        Hash[*(attribute_nodes.map { |node|
+        hash = Hash[*(attribute_nodes.map { |node|
           [node.name, node]
         }.flatten)]
+        hash.extend(DOM::NamedNodeMap)
+        hash
       end
 
       ####
@@ -259,10 +261,6 @@ module Nokogiri
         type == ELEMENT_NODE
       end
       alias :elem? :element?
-
-      def text?
-        type == TEXT_NODE
-      end
 
       def to_s
         document.xml? ? to_xml : to_html
