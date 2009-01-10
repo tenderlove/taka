@@ -64,7 +64,6 @@ DOMTestCase('hc_namednodemapreturnattrnode') do
       testEmployee = elementList.item(1)
       attributes = testEmployee.attributes()
       streetAttr = attributes.getNamedItem("class")
-      assertInstanceOf("typeAssert", Attr.class, streetAttr)
 attrName = streetAttr.nodeName()
       assertEqualsAutoCase("attribute", "nodeName", "class", attrName)
         attrName = streetAttr.name()
