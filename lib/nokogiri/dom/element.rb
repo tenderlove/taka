@@ -17,17 +17,17 @@ module Nokogiri
         self.remove_attribute(name)
       end
 
-      def getAttributeNode(name)
+      def getAttributeNode name
         self.attribute(name)
       end
 
-      def setAttributeNode(new_attribute)
+      def setAttributeNode new_attribute
         self[new_attribute.name] = new_attribute.value
         self.getAttributeNode(new_attribute.name)
       end
 
-      def removeAttributeNode(oldAttr)
-        raise(NotImplementedError.new)
+      def removeAttributeNode old_attribute
+        remove_attribute old_attribute.name
       end
 
       def getElementsByTagName(name)
