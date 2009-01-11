@@ -85,6 +85,9 @@ module Nokogiri
       end
 
       def replaceChild new_child, old_child
+        if old_child.read_only?
+          raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+        end
         if self.document != new_child.document
           raise XML::DOMException.new(XML::DOMException::WRONG_DOCUMENT_ERR)
         end
