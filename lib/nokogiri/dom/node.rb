@@ -106,6 +106,12 @@ module Nokogiri
       end
 
       def removeChild old_child
+        if old_child.read_only?
+          raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+        end
+        unless children.include?(old_child)
+          raise XML::DOMException.new(XML::DOMException::NOT_FOUND_ERR)
+        end
         old_child.remove
       end
 
