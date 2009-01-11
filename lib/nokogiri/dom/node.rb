@@ -38,7 +38,9 @@ module Nokogiri
       end
 
       def childNodes
-        children
+        DOM::NodeList.new do
+          self.children
+        end
       end
 
       def firstChild

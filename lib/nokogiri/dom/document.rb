@@ -2,7 +2,9 @@ module Nokogiri
   module DOM
     module Document
       def getElementsByTagName name
-        css(name)
+        DOM::NodeList.new do
+          css(name)
+        end
       end
 
       def doctype

@@ -31,7 +31,9 @@ module Nokogiri
       end
 
       def getElementsByTagName(name)
-        css(name)
+        DOM::NodeList.new do
+          css(name)
+        end
       end
 
       def getAttributeNS(namespaceURI, localName)
