@@ -11,7 +11,7 @@ module Nokogiri
         unless key? name
           raise XML::DOMException.new(XML::DOMException::NOT_FOUND_ERR) 
         end
-        raise(NotImplementedError.new)
+        delete name
       end
 
       def setNamedItem item
