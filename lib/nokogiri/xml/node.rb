@@ -335,6 +335,58 @@ Node.replace requires a Node argument, and cannot accept a Document.
         return false unless other.respond_to?(:pointer_id)
         pointer_id == other.pointer_id
       end
+
+      private
+      ###
+      # Returns true if +new_child+ can be appended
+      def can_append? new_child
+        return true if new_child.type == DOCUMENT_FRAG_NODE
+        return false if [
+          DOCUMENT_TYPE_NODE,
+          DTD_NODE,
+          PI_NODE,
+          COMMENT_NODE,
+          TEXT_NODE,
+          CDATA_SECTION_NODE,
+          NOTATION_NODE
+        ].include?(type)
+
+        if [
+          DOCUMENT_FRAG_NODE,
+          ENTITY_REF_NODE,
+          ELEMENT_NODE,
+          ENTITY_NODE,
+          ENTITY_DECL
+        ].include?(type)
+          return false unless [
+            ELEMENT_NODE,
+            PI_NODE,
+            COMMENT_NODE,
+            TEXT_NODE,
+            CDATA_SECTION_NODE,
+            ENTITY_REF_NODE
+          ].include?(new_child.type)
+        end
+
+        case type
+        when DOCUMENT_NODE
+          return false unless [
+            ELEMENT_NODE,
+            PI_NODE,
+            COMMENT_NODE,
+            DTD_NODE,
+            DOCUMENT_TYPE_NODE,
+            ELEMENT_NODE,
+          ].include?(new_child.type)
+        when ATTRIBUTE_NODE
+          return false unless [
+            TEXT_NODE,
+            ENTITY_REF_NODE,
+          ].include?(new_child.type)
+        end
+
+        true
+      end
     end
   end
 end
