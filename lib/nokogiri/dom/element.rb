@@ -10,6 +10,9 @@ module Nokogiri
       end
 
       def setAttribute(name, value)
+        if name.length == 0 || name !~ /^\w+$/
+          raise XML::DOMException.new(XML::DOMException::INVALID_CHARACTER_ERR)
+        end
         self[name] = value
       end
 

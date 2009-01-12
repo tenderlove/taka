@@ -19,8 +19,11 @@ module Nokogiri
         root
       end
 
-      def createElement(tagName)
-        XML::Node.new(tagName, self)
+      def createElement tag_name
+        unless tag_name =~ /^\w+$/
+          raise XML::DOMException.new(XML::DOMException::INVALID_CHARACTER_ERR)
+        end
+        XML::Node.new(tag_name, self)
       end
 
       def createDocumentFragment
@@ -44,6 +47,9 @@ module Nokogiri
       end
 
       def createAttribute name
+        unless name =~ /^\w+$/
+          raise XML::DOMException.new(XML::DOMException::INVALID_CHARACTER_ERR)
+        end
         Nokogiri::XML::Attr.new(self, name)
       end
 

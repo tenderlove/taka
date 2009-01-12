@@ -6,6 +6,7 @@ module Nokogiri
       NOT_FOUND_ERR               = 2
       NO_MODIFICATION_ALLOWED_ERR = 3
       INDEX_SIZE_ERR              = 4
+      INVALID_CHARACTER_ERR       = 5
 
       attr_accessor :code
 
