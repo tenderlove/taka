@@ -81,6 +81,10 @@ module Nokogiri
           raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
         end
 
+        if new_child.document != document
+          raise XML::DOMException.new(XML::DOMException::WRONG_DOCUMENT_ERR)
+        end
+
         unless ref_child
           new_child.parent = self
         else
