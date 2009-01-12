@@ -17,7 +17,7 @@ module Nokogiri
         if offset > length || offset < 0 || count < 0
           raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
         end
-        raise(NotImplementedError.new)
+        content[offset, count]
       end
 
       def appendData data
@@ -28,21 +28,25 @@ module Nokogiri
         if offset < 0 || offset > length
           raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
         end
-        raise(NotImplementedError.new)
+        copy = content
+        copy.insert(offset, arg)
+        self.content = copy
       end
 
       def deleteData offset, count
         if offset < 0 || count < 0 || offset > length
           raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
         end
-        raise(NotImplementedError.new)
+        replaceData(offset, count, '')
       end
 
       def replaceData offset, count, arg
         if offset < 0 || count < 0 || offset > length
           raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
         end
-        raise(NotImplementedError.new)
+        copy = content
+        copy[offset, count] = arg
+        self.content = copy
       end
     end
   end
