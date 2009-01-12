@@ -54,6 +54,9 @@ module Nokogiri
       end
 
       def createEntityReference name
+        unless name =~ /^\w+$/
+          raise XML::DOMException.new(XML::DOMException::INVALID_CHARACTER_ERR)
+        end
         Nokogiri::XML::EntityReference.new(self, name)
       end
 
