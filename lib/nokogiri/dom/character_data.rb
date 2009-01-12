@@ -10,10 +10,13 @@ module Nokogiri
       end
 
       def length
-        raise(NotImplementedError.new)
+        content.length
       end
 
-      def substringData(offset, count)
+      def substringData offset, count
+        if offset > length || offset < 0 || count < 0
+          raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
+        end
         raise(NotImplementedError.new)
       end
 
@@ -21,13 +24,24 @@ module Nokogiri
         self.content = "#{content}#{data}"
       end
 
-      def insertData(offset, arg)
+      def insertData offset, arg
+        if offset < 0 || offset > length
+          raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
+        end
         raise(NotImplementedError.new)
       end
-      def deleteData(offset, count)
+
+      def deleteData offset, count
+        if offset < 0 || count < 0 || offset > length
+          raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
+        end
         raise(NotImplementedError.new)
       end
-      def replaceData(offset, count, arg)
+
+      def replaceData offset, count, arg
+        if offset < 0 || count < 0 || offset > length
+          raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)
+        end
         raise(NotImplementedError.new)
       end
     end
