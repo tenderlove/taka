@@ -26,6 +26,9 @@ module Nokogiri
       end
 
       def nodeValue= value
+        if read_only?
+          raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+        end
         self.content = value
       end
 
