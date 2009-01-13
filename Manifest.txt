@@ -11,6 +11,8 @@ ext/nokogiri/html_sax_parser.c
 ext/nokogiri/html_sax_parser.h
 ext/nokogiri/native.c
 ext/nokogiri/native.h
+ext/nokogiri/xml_attr.c
+ext/nokogiri/xml_attr.h
 ext/nokogiri/xml_cdata.c
 ext/nokogiri/xml_cdata.h
 ext/nokogiri/xml_comment.c
@@ -19,6 +21,8 @@ ext/nokogiri/xml_document.c
 ext/nokogiri/xml_document.h
 ext/nokogiri/xml_dtd.c
 ext/nokogiri/xml_dtd.h
+ext/nokogiri/xml_entity_reference.c
+ext/nokogiri/xml_entity_reference.h
 ext/nokogiri/xml_io.c
 ext/nokogiri/xml_io.h
 ext/nokogiri/xml_node.c
@@ -56,16 +60,17 @@ lib/nokogiri/decorators/hpricot.rb
 lib/nokogiri/decorators/hpricot/node.rb
 lib/nokogiri/decorators/hpricot/node_set.rb
 lib/nokogiri/decorators/hpricot/xpath_visitor.rb
+lib/nokogiri/decorators/slop.rb
 lib/nokogiri/dom.rb
 lib/nokogiri/dom/character_data.rb
 lib/nokogiri/dom/document.rb
 lib/nokogiri/dom/element.rb
 lib/nokogiri/dom/named_node_map.rb
 lib/nokogiri/dom/node.rb
+lib/nokogiri/dom/node_list.rb
 lib/nokogiri/dom/node_set.rb
 lib/nokogiri/dom/notation.rb
 lib/nokogiri/dom/text.rb
-lib/nokogiri/decorators/slop.rb
 lib/nokogiri/hpricot.rb
 lib/nokogiri/html.rb
 lib/nokogiri/html/builder.rb
@@ -687,6 +692,7 @@ test/xml/test_cdata.rb
 test/xml/test_comment.rb
 test/xml/test_document.rb
 test/xml/test_dtd.rb
+test/xml/test_entity_reference.rb
 test/xml/test_node.rb
 test/xml/test_node_set.rb
 test/xml/test_text.rb
