@@ -89,7 +89,7 @@ static VALUE namespaces(VALUE self)
 
   Data_Get_Struct(self, xmlTextReader, reader);
 
-  attr = rb_ary_new() ;
+  attr = rb_hash_new() ;
 
   if (! has_attributes(reader))
     return attr ;
