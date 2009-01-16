@@ -135,12 +135,7 @@ module DOM
       options = self.class.name =~ /attrdefaultvalue/i ? 15 : 3
       options |= (1 << 5 | 1 << 6)
       xml_file = File.join(BASE, 'dom', 'level1','core','files',"#{doc_uri}.xml")
-      html_file = File.join(BASE, 'dom', 'level1','core','files',"#{doc_uri}.html")
-      if File.exists?(html_file)
-        Nokogiri::HTML(File.open(html_file), html_file, nil, options)
-      else
-        Nokogiri::XML(File.open(xml_file), xml_file, nil, options)
-      end
+      Nokogiri::XML(File.open(xml_file), xml_file, nil, options)
     end
   end
 end

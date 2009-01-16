@@ -22,6 +22,18 @@ module Nokogiri
       end
 
       def nodeValue
+        return nil if [
+          XML::Node::ELEMENT_NODE,
+          XML::Node::ENTITY_NODE,
+          XML::Node::ENTITY_REF_NODE,
+          XML::Node::DOCUMENT_NODE,
+          XML::Node::DOCUMENT_TYPE_NODE,
+          XML::Node::DOCUMENT_FRAG_NODE,
+          XML::Node::NOTATION_NODE,
+          XML::Node::DTD_NODE,
+          XML::Node::ENTITY_DECL,
+          XML::Node::NAMESPACE_DECL,
+        ].include?(type)
         content
       end
 
@@ -29,7 +41,13 @@ module Nokogiri
         if read_only?
           raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
-        self.content = value
+        if [
+          CDATA_SECTION_NODE,
+          COMMENT_NODE,
+          TEXT_NODE
+        ].include?(type)
+          self.content = value
+        end
       end
 
       def nodeType

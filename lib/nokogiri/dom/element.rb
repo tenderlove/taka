@@ -17,6 +17,9 @@ module Nokogiri
       end
 
       def removeAttribute(name)
+        if read_only?
+          raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+        end
         self.remove_attribute(name)
       end
 

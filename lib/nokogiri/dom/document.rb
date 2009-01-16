@@ -2,8 +2,10 @@ module Nokogiri
   module DOM
     module Document
       def getElementsByTagName name
+        prefix = namespaces.keys.first
+        path = prefix ? "#{prefix}:#{name}" : name
         DOM::NodeList.new do
-          css(name)
+          xpath("//#{path}", namespaces)
         end
       end
 
