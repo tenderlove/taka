@@ -73,6 +73,10 @@ module Nokogiri
       end
 
       def insertBefore new_child, ref_child
+        unless can_append?(new_child)
+          raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
+        end
+
         if read_only?
           raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
