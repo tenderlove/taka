@@ -19,6 +19,8 @@ ext/nokogiri/xml_comment.c
 ext/nokogiri/xml_comment.h
 ext/nokogiri/xml_document.c
 ext/nokogiri/xml_document.h
+ext/nokogiri/xml_document_fragment.c
+ext/nokogiri/xml_document_fragment.h
 ext/nokogiri/xml_dtd.c
 ext/nokogiri/xml_dtd.h
 ext/nokogiri/xml_entity_reference.c
@@ -691,6 +693,7 @@ test/xml/test_builder.rb
 test/xml/test_cdata.rb
 test/xml/test_comment.rb
 test/xml/test_document.rb
+test/xml/test_document_fragment.rb
 test/xml/test_dtd.rb
 test/xml/test_entity_reference.rb
 test/xml/test_node.rb
