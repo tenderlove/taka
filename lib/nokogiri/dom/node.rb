@@ -154,7 +154,7 @@ module Nokogiri
         !children.empty?
       end
 
-      def cloneNode(deep)
+      def cloneNode deep
         if [
           XML::Node::ENTITY_NODE,
           XML::Node::ENTITY_DECL,
@@ -165,7 +165,7 @@ module Nokogiri
         ].include?(type)
           raise XML::DOMException.new(XML::DOMException::NOT_SUPPORTED_ERR)
         end
-        raise(NotImplementedError.new)
+        dup(deep ? 1 : 0)
       end
 
       def normalize
