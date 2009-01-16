@@ -149,6 +149,10 @@ module Nokogiri
       end
 
       def appendChild new_child
+        unless can_append?(new_child)
+          raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
+        end
+
         if document != new_child.document
           raise XML::DOMException.new(XML::DOMException::WRONG_DOCUMENT_ERR)
         end
