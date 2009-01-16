@@ -31,7 +31,8 @@ module Nokogiri
         if [
           XML::Node::CDATA_SECTION_NODE,
           XML::Node::COMMENT_NODE,
-          XML::Node::TEXT_NODE
+          XML::Node::TEXT_NODE,
+          XML::Node::PI_NODE,
         ].include?(type)
           self.content = value
         end
