@@ -27,7 +27,7 @@ module Nokogiri
       end
 
       def createDocumentFragment
-        raise(NotImplementedError.new)
+        XML::DocumentFragment.new(self)
       end
 
       def createTextNode data
