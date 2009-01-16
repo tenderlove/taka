@@ -1,19 +1,6 @@
 module Nokogiri
   module DOM
     module Node
-      ELEMENT_NODE = 1
-      ATTRIBUTE_NODE = 2
-      TEXT_NODE = 3
-      CDATA_SECTION_NODE = 4
-      ENTITY_REFERENCE_NODE = 5
-      ENTITY_NODE = 6
-      PROCESSING_INSTRUCTION_NODE = 7
-      COMMENT_NODE = 8
-      DOCUMENT_NODE = 9
-      DOCUMENT_TYPE_NODE = 10
-      DOCUMENT_FRAGMENT_NODE = 11
-      NOTATION_NODE = 12
-
       def nodeName
         return '#text' if text?
         return '#comment' if comment?
@@ -42,9 +29,9 @@ module Nokogiri
           raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
         if [
-          CDATA_SECTION_NODE,
-          COMMENT_NODE,
-          TEXT_NODE
+          XML::Node::CDATA_SECTION_NODE,
+          XML::Node::COMMENT_NODE,
+          XML::Node::TEXT_NODE
         ].include?(type)
           self.content = value
         end
@@ -168,6 +155,16 @@ module Nokogiri
       end
 
       def cloneNode(deep)
+        if [
+          XML::Node::ENTITY_NODE,
+          XML::Node::ENTITY_DECL,
+          XML::Node::NOTATION_NODE,
+          XML::Node::DOCUMENT_TYPE_NODE,
+          XML::Node::DTD_NODE,
+          XML::Node::NAMESPACE_DECL,
+        ].include?(type)
+          raise XML::DOMException.new(XML::DOMException::NOT_SUPPORTED_ERR)
+        end
         raise(NotImplementedError.new)
       end
 
