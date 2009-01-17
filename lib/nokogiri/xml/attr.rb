@@ -14,7 +14,6 @@ module Nokogiri
       def specified
         true
       end
-      alias :to_s :value
 
       def content= value
         self.value = value

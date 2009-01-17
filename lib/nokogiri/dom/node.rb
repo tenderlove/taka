@@ -28,11 +28,13 @@ module Nokogiri
         if read_only?
           raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
+
         if [
           XML::Node::CDATA_SECTION_NODE,
           XML::Node::COMMENT_NODE,
           XML::Node::TEXT_NODE,
           XML::Node::PI_NODE,
+          XML::Node::ATTRIBUTE_NODE,
         ].include?(type)
           self.content = value
         end
