@@ -29,6 +29,14 @@ module Nokogiri
           raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
 
+        return if [
+          XML::Node::ELEMENT_NODE,
+          XML::Node::ENTITY_REF_NODE,
+          XML::Node::DTD_NODE,
+          XML::Node::DOCUMENT_FRAG_NODE,
+          XML::Node::DOCUMENT_NODE,
+        ].include?(type)
+
         if [
           XML::Node::CDATA_SECTION_NODE,
           XML::Node::COMMENT_NODE,
@@ -36,8 +44,9 @@ module Nokogiri
           XML::Node::PI_NODE,
           XML::Node::ATTRIBUTE_NODE,
         ].include?(type)
-          self.content = value
+          return self.content = value
         end
+        raise(NotImplementedError.new)
       end
 
       def nodeType
