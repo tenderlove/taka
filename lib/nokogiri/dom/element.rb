@@ -10,6 +10,13 @@ module Nokogiri
       end
 
       def setAttribute(name, value)
+        if read_only? || [
+          XML::Node::TEXT_NODE,
+          XML::Node::ENTITY_DECL
+        ].include?(type)
+          raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+        end
+
         if name.length == 0 || name !~ /^\w+$/
           raise XML::DOMException.new(XML::DOMException::INVALID_CHARACTER_ERR)
         end
@@ -28,6 +35,12 @@ module Nokogiri
       end
 
       def setAttributeNode new_attribute
+        if read_only? || [
+          XML::Node::TEXT_NODE,
+          XML::Node::ENTITY_DECL
+        ].include?(type)
+          raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+        end
         old_attribute = self[new_attribute.name]
         self[new_attribute.name] = new_attribute.value
         old_attribute
