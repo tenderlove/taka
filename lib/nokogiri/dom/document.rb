@@ -62,6 +62,14 @@ module Nokogiri
         Nokogiri::XML::EntityReference.new(self, name)
       end
 
+      def getImplementation
+        self
+      end
+
+      def hasFeature type, version
+        return true if type.downcase == 'xml'
+      end
+
       def importNode(importedNode, deep)
         raise(NotImplementedError.new)
       end

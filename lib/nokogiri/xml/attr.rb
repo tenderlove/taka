@@ -1,6 +1,8 @@
 module Nokogiri
   module XML
     class Attr < Node
+      include DOM::Attr
+
       def == other
         return false unless other.is_a?(Attr)
         return self.name == other.name && self.value == other.value
@@ -10,10 +12,6 @@ module Nokogiri
         content
       end
       alias :to_s :value
-
-      def specified
-        true
-      end
 
       def content= value
         self.value = value
