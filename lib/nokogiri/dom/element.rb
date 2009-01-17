@@ -28,8 +28,9 @@ module Nokogiri
       end
 
       def setAttributeNode new_attribute
+        old_attribute = self[new_attribute.name]
         self[new_attribute.name] = new_attribute.value
-        self.getAttributeNode(new_attribute.name)
+        old_attribute
       end
 
       def removeAttributeNode old_attribute
