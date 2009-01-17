@@ -7,12 +7,17 @@ module Nokogiri
       end
 
       def value
-        self.children.first.to_s
+        content
       end
       alias :to_s :value
 
       def specified
         true
+      end
+      alias :to_s :value
+
+      def content= value
+        self.value = value
       end
     end
   end
