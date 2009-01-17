@@ -88,6 +88,7 @@ lib/nokogiri/xml/cdata.rb
 lib/nokogiri/xml/comment.rb
 lib/nokogiri/xml/document.rb
 lib/nokogiri/xml/dom_exception.rb
+lib/nokogiri/xml/document_fragment.rb
 lib/nokogiri/xml/dtd.rb
 lib/nokogiri/xml/element.rb
 lib/nokogiri/xml/entity_declaration.rb
@@ -95,6 +96,7 @@ lib/nokogiri/xml/named_node_map.rb
 lib/nokogiri/xml/node.rb
 lib/nokogiri/xml/node_set.rb
 lib/nokogiri/xml/notation.rb
+lib/nokogiri/xml/processing_instruction.rb
 lib/nokogiri/xml/reader.rb
 lib/nokogiri/xml/sax.rb
 lib/nokogiri/xml/sax/document.rb
@@ -698,6 +700,7 @@ test/xml/test_dtd.rb
 test/xml/test_entity_reference.rb
 test/xml/test_node.rb
 test/xml/test_node_set.rb
+test/xml/test_processing_instruction.rb
 test/xml/test_text.rb
 test/xml/test_xpath.rb
 vendor/hoe.rb
