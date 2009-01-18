@@ -3,7 +3,19 @@ module Nokogiri
     module HTML
       module FormElement
         def elements
-          xpath('.//select')
+          xpath('.//select', './/textarea', './/input')
+        end
+
+        def length
+          elements.length
+        end
+
+        def acceptCharset
+          self['accept-charset']
+        end
+
+        def method
+          self['method']
         end
       end
     end

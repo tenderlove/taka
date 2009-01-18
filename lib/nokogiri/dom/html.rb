@@ -8,6 +8,7 @@ require 'nokogiri/dom/html/applet_element'
 require 'nokogiri/dom/html/area_element'
 require 'nokogiri/dom/html/body_element'
 require 'nokogiri/dom/html/form_element'
+require 'nokogiri/dom/html/field_set_element'
 require 'nokogiri/dom/html/button_element'
 require 'nokogiri/dom/html/select_element'
 
@@ -24,17 +25,18 @@ module Nokogiri
             return super unless node.respond_to?(:name)
             node.extend(DOM::HTML::Element)
             ({
-              'table'   => [DOM::HTML::TableElement],
-              'tr'      => [DOM::HTML::TableRowElement],
-              'thead'   => [DOM::HTML::TableRowElement],
-              'tfoot'   => [DOM::HTML::TableRowElement],
-              'a'       => [DOM::HTML::AnchorElement],
-              'applet'  => [DOM::HTML::AppletElement],
-              'area'    => [DOM::HTML::AreaElement],
-              'body'    => [DOM::HTML::BodyElement],
-              'form'    => [DOM::HTML::FormElement],
-              'button'  => [DOM::HTML::ButtonElement],
-              'select'  => [DOM::HTML::SelectElement],
+              'table'     => [DOM::HTML::TableElement],
+              'tr'        => [DOM::HTML::TableRowElement],
+              'thead'     => [DOM::HTML::TableRowElement],
+              'tfoot'     => [DOM::HTML::TableRowElement],
+              'a'         => [DOM::HTML::AnchorElement],
+              'applet'    => [DOM::HTML::AppletElement],
+              'area'      => [DOM::HTML::AreaElement],
+              'body'      => [DOM::HTML::BodyElement],
+              'form'      => [DOM::HTML::FormElement],
+              'button'    => [DOM::HTML::ButtonElement],
+              'select'    => [DOM::HTML::SelectElement],
+              'fieldset'  => [DOM::HTML::FieldSetElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end

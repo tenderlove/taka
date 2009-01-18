@@ -7,6 +7,10 @@ module Nokogiri
           self['id']
         end
 
+        def className
+          self['class']
+        end
+
         def method_missing method, *args, &block
           attribute = method.to_s.downcase
           super unless key?(attribute)
