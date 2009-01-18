@@ -58,6 +58,28 @@ module Nokogiri
         def getElementsByName name
           xpath(".//*[@name='#{name}']")
         end
+
+        def open
+          children.each { |child| child.unlink }
+        end
+
+        def write string
+          @tmp_doc ||= ''
+          @tmp_doc << string
+        end
+
+        def writeln string
+          write("#{string}\n")
+        end
+
+        def close
+          @tmp_doc ||= nil
+          return unless @tmp_doc
+          Nokogiri::HTML.fragment(@tmp_doc || '').each { |node|
+            document.add_child node
+          }
+          @tmp_doc = nil
+        end
       end
     end
   end
