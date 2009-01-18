@@ -1,4 +1,5 @@
 require 'nokogiri/dom/html/collection'
+require 'nokogiri/dom/html/document'
 require 'nokogiri/dom/html/element'
 require 'nokogiri/dom/html/table_element'
 require 'nokogiri/dom/html/table_row_element'
@@ -17,6 +18,7 @@ module Nokogiri
         doc = Nokogiri::HTML(*args)
         doc.decorators(XML::Node) << DOM::HTML::Element
         doc.decorators(XML::NodeSet) << DOM::HTML::Collection
+        doc.extend(DOM::HTML::Document)
         doc.extend(Module.new {
           def decorate node
             return super unless node.respond_to?(:name)

@@ -57,7 +57,7 @@ DOMTestCase('HTMLDocument04') do
     doc = nil
     doc = load_document("document", false)
       vurl = doc.URL()
-      assertURIEquals("URLLink", nil, nil, nil, nil, "document", nil, nil, Boolean.TRUE, vurl)
+      assertURIEquals("URLLink", nil, nil, nil, nil, "document", nil, nil, true, vurl)
 
   end
 
