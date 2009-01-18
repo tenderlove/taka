@@ -1,6 +1,12 @@
 require 'nokogiri/dom/html/element'
 require 'nokogiri/dom/html/table_element'
 require 'nokogiri/dom/html/table_row_element'
+require 'nokogiri/dom/html/anchor_element'
+require 'nokogiri/dom/html/applet_element'
+require 'nokogiri/dom/html/area_element'
+require 'nokogiri/dom/html/body_element'
+require 'nokogiri/dom/html/form_element'
+require 'nokogiri/dom/html/button_element'
 
 module Nokogiri
   module DOM
@@ -11,13 +17,21 @@ module Nokogiri
         doc.extend(Module.new {
           def decorate node
             return super unless node.respond_to?(:name)
-            extender = {
-              'table' => DOM::HTML::TableElement,
-              'tr'    => DOM::HTML::TableRowElement,
-              'thead' => DOM::HTML::TableRowElement,
-              'tfoot' => DOM::HTML::TableRowElement,
-            }[node.name]
-            node.extend(extender) if extender
+            node.extend(DOM::HTML::Element)
+            ({
+              'table'   => [DOM::HTML::TableElement],
+              'tr'      => [DOM::HTML::TableRowElement],
+              'thead'   => [DOM::HTML::TableRowElement],
+              'tfoot'   => [DOM::HTML::TableRowElement],
+              'a'       => [DOM::HTML::AnchorElement],
+              'applet'  => [DOM::HTML::AppletElement],
+              'area'    => [DOM::HTML::AreaElement],
+              'body'    => [DOM::HTML::BodyElement],
+              'form'    => [DOM::HTML::FormElement],
+              'button'  => [DOM::HTML::ButtonElement],
+            }[node.name] || []).each do |klass|
+              node.extend(klass)
+            end
 
             super
             node

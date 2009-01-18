@@ -334,6 +334,14 @@ Node.replace requires a Node argument, and cannot accept a Document.
         text
       end
 
+      def name
+        node_name
+      end
+
+      def name= value
+        self.node_name = value
+      end
+
       def == other
         return false unless other
         return false unless other.respond_to?(:pointer_id)
