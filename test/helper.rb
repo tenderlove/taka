@@ -115,7 +115,7 @@ module DOM
     ### WTF.  FIXME
     def assertURIEquals *args
       args = args.compact
-      assert_equal args[1], args[2]
+      assert_match args[1], args[2]
     end
 
     ### FIXME not sure how this assertion is supposed to work
@@ -134,8 +134,13 @@ module DOM
     def load_document(doc_uri, will_be_modified)
       options = self.class.name =~ /attrdefaultvalue/i ? 15 : 3
       options |= (1 << 5 | 1 << 6)
-      xml_file = File.join(BASE, 'dom', 'level1','core','files',"#{doc_uri}.xml")
-      Nokogiri::XML(File.open(xml_file), xml_file, nil, options)
+      if self.class.name =~ /^Html/
+        html_file = File.join(BASE, 'dom', 'level1','html','files',"#{doc_uri}.html")
+        Nokogiri::DOM::HTML(File.open(html_file), html_file, nil, options)
+      else
+        xml_file = File.join(BASE, 'dom', 'level1','core','files',"#{doc_uri}.xml")
+        Nokogiri::XML(File.open(xml_file), xml_file, nil, options)
+      end
     end
   end
 end

@@ -273,10 +273,18 @@ ValgrindTestTask.new('test:valgrind').extend(Module.new {
 Rake::Task['test:valgrind'].prerequisites << :build
 
 namespace :test do
-  desc "run only dom tests"
-  task :dom => :build do
-    ENV['TEST'] = 'test/dom/**/test_*.rb'
-    Rake::Task['test'].invoke
+  namespace :dom do
+    desc "run only dom core tests"
+    task :core => :build do
+      ENV['TEST'] = 'test/dom/level1/core/**/test_*.rb'
+      Rake::Task['test'].invoke
+    end
+
+    desc "run only dom html tests"
+    task :html => :build do
+      ENV['TEST'] = 'test/dom/level1/html/**/test_*.rb'
+      Rake::Task['test'].invoke
+    end
   end
 
   desc "run test suite under valgrind with memory-fill ruby options"
