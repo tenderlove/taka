@@ -11,6 +11,10 @@ require 'nokogiri/dom/html/form_element'
 require 'nokogiri/dom/html/field_set_element'
 require 'nokogiri/dom/html/button_element'
 require 'nokogiri/dom/html/select_element'
+require 'nokogiri/dom/html/frame_element'
+require 'nokogiri/dom/html/iframe_element'
+require 'nokogiri/dom/html/image_element'
+require 'nokogiri/dom/html/input_element'
 
 module Nokogiri
   module DOM
@@ -37,6 +41,10 @@ module Nokogiri
               'button'    => [DOM::HTML::ButtonElement],
               'select'    => [DOM::HTML::SelectElement],
               'fieldset'  => [DOM::HTML::FieldSetElement],
+              'frame'     => [DOM::HTML::FrameElement],
+              'iframe'    => [DOM::HTML::IFrameElement],
+              'img'       => [DOM::HTML::ImageElement],
+              'input'     => [DOM::HTML::InputElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end

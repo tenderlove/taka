@@ -17,6 +17,17 @@ module Nokogiri
         def method
           self['method']
         end
+
+        def reset
+          elements.each do |element|
+            next unless element.respond_to?(:defaultValue)
+            element['value'] = element.defaultValue
+          end
+        end
+
+        def submit
+          # Does nothing for now
+        end
       end
     end
   end
