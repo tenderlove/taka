@@ -41,7 +41,7 @@ module Nokogiri
         ].include?(type)
           raise XML::DOMException.new(XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
-        old_attribute = self[new_attribute.name]
+        old_attribute = self.getAttributeNode(new_attribute.name)
         self[new_attribute.name] = new_attribute.value
         old_attribute
       end

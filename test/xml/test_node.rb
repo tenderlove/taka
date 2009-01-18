@@ -226,8 +226,8 @@ module Nokogiri
         assert node = xml.search('//address')[2]
         assert attributes = node.attributes
         assert attributes['domestic']
-        attributes['domestic'] = 'awesome'
-        assert_equal 'awesome', attributes['domestic']
+        attributes['domestic'].value = 'awesome'
+        assert_equal 'awesome', attributes['domestic'].value
         assert_equal 'awesome', node['domestic']
       end
 
