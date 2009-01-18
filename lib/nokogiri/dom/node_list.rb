@@ -5,8 +5,8 @@ module Nokogiri
         @block = block
       end
 
-      def method_missing name, *args
-        @block.call.send(name, *args)
+      def method_missing name, *args, &block
+        @block.call.send(name, *args, &block)
       end
     end
   end
