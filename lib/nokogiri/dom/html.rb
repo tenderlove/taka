@@ -15,6 +15,8 @@ require 'nokogiri/dom/html/frame_element'
 require 'nokogiri/dom/html/iframe_element'
 require 'nokogiri/dom/html/image_element'
 require 'nokogiri/dom/html/input_element'
+require 'nokogiri/dom/html/is_index_element'
+require 'nokogiri/dom/html/label_element'
 
 module Nokogiri
   module DOM
@@ -45,6 +47,8 @@ module Nokogiri
               'iframe'    => [DOM::HTML::IFrameElement],
               'img'       => [DOM::HTML::ImageElement],
               'input'     => [DOM::HTML::InputElement],
+              'isindex'   => [DOM::HTML::IsIndexElement],
+              'label'     => [DOM::HTML::LabelElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end
