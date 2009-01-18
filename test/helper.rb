@@ -115,7 +115,7 @@ module DOM
     ### WTF.  FIXME
     def assertURIEquals *args
       args = args.compact
-      assert_match args[1], args[2]
+      assert_match args[1], args.last
     end
 
     ### FIXME not sure how this assertion is supposed to work

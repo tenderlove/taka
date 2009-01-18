@@ -82,9 +82,11 @@ module Nokogiri
       def getElementsByTagNameNS(namespaceURI, localName)
         raise(NotImplementedError.new)
       end
-      def getElementById(elementId)
-        raise(NotImplementedError.new)
+
+      def getElementById element_id
+        at(".//*[@id='#{element_id}']")
       end
+
       def inputEncoding
         raise(NotImplementedError.new)
       end

@@ -19,10 +19,6 @@ module Nokogiri
           ''
         end
 
-        def URL
-          raise
-        end
-
         def body
           at('.//body')
         end
@@ -33,6 +29,34 @@ module Nokogiri
 
         def applets
           xpath('.//object[applet]', './/applet')
+        end
+
+        def URL
+          url
+        end
+
+        def links
+          xpath('.//area[@href]', './/a[@href]')
+        end
+
+        def forms
+          xpath('.//form')
+        end
+
+        def anchors
+          xpath('.//a[@name]')
+        end
+
+        # The cookies associated with this document. If there are none, the
+        # value is an empty string. Otherwise, the value is a string: a
+        # semicolon-delimited list of "name, value" pairs for all the cookies
+        # associated with the page. For example, name=value;expires=date. 
+        def cookie
+          ''
+        end
+
+        def getElementsByName name
+          xpath(".//*[@name='#{name}']")
         end
       end
     end
