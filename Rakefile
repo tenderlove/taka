@@ -257,6 +257,9 @@ class ValgrindTestTask < Rake::TestTask
   end
 end
 
+# partial-loads-ok and undef-value-errors necessary to ignore
+# spurious (and eminently ignorable) warnings from the ruby
+# interpreter
 VALGRIND_BASIC_OPTS = "--num-callers=50 --error-limit=no --partial-loads-ok=yes --undef-value-errors=no"
 
 desc "run test suite under valgrind with basic ruby options"
@@ -270,9 +273,11 @@ ValgrindTestTask.new('test:valgrind').extend(Module.new {
 Rake::Task['test:valgrind'].prerequisites << :build
 
 namespace :test do
-  # partial-loads-ok and undef-value-errors necessary to ignore
-  # spurious (and eminently ignorable) warnings from the ruby
-  # interpreter
+  desc "run only dom tests"
+  task :dom => :build do
+    ENV['TEST'] = 'test/dom/**/test_*.rb'
+    Rake::Task['test'].invoke
+  end
 
   desc "run test suite under valgrind with memory-fill ruby options"
   task :valgrind_mem => :build do
