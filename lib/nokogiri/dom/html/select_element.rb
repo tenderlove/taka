@@ -1,9 +1,9 @@
 module Nokogiri
   module DOM
     module HTML
-      module FormElement
-        def elements
-          xpath('.//select')
+      module SelectElement
+        def name
+          self['name']
         end
       end
     end

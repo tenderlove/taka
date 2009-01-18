@@ -120,7 +120,7 @@ module DOM
 
     ### FIXME not sure how this assertion is supposed to work
     def assertEqualsAutoCase one, two, expected, actual
-      assert_equal expected, actual
+      assert_equal expected.downcase, actual.downcase
     end
 
     def preload(content_type, doc_uri, will_be_modified)

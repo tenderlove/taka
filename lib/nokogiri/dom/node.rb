@@ -5,7 +5,7 @@ module Nokogiri
         return '#text' if text?
         return '#comment' if comment?
         return '#document' if self == document
-        name
+        node_name
       end
 
       def nodeValue
