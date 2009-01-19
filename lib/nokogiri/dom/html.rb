@@ -28,6 +28,8 @@ require 'nokogiri/dom/html/option_element'
 require 'nokogiri/dom/html/param_element'
 require 'nokogiri/dom/html/pre_element'
 require 'nokogiri/dom/html/script_element'
+require 'nokogiri/dom/html/style_element'
+require 'nokogiri/dom/html/table_cell_element'
 
 module Nokogiri
   module DOM
@@ -71,6 +73,9 @@ module Nokogiri
               'param'     => [DOM::HTML::ParamElement],
               'pre'       => [DOM::HTML::PreElement],
               'script'    => [DOM::HTML::ScriptElement],
+              'style'     => [DOM::HTML::StyleElement],
+              'th'        => [DOM::HTML::TableCellElement],
+              'td'        => [DOM::HTML::TableCellElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end

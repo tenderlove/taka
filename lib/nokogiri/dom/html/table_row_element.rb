@@ -13,6 +13,10 @@ module Nokogiri
           end
           raise
         end
+
+        def cells
+          xpath('.//td', './/th')
+        end
       end
     end
   end
