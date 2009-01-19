@@ -12,6 +12,10 @@ module Nokogiri
           end
         end
 
+        def selected
+          !!self['selected']
+        end
+
         def index
           select = parent
           while select.node_name != 'select'

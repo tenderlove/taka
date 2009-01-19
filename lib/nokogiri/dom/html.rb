@@ -27,6 +27,7 @@ require 'nokogiri/dom/html/olist_element'
 require 'nokogiri/dom/html/option_element'
 require 'nokogiri/dom/html/param_element'
 require 'nokogiri/dom/html/pre_element'
+require 'nokogiri/dom/html/script_element'
 
 module Nokogiri
   module DOM
@@ -69,6 +70,7 @@ module Nokogiri
               'option'    => [DOM::HTML::OptionElement],
               'param'     => [DOM::HTML::ParamElement],
               'pre'       => [DOM::HTML::PreElement],
+              'script'    => [DOM::HTML::ScriptElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end
