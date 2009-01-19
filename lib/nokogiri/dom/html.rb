@@ -25,6 +25,8 @@ require 'nokogiri/dom/html/meta_element'
 require 'nokogiri/dom/html/object_element'
 require 'nokogiri/dom/html/olist_element'
 require 'nokogiri/dom/html/option_element'
+require 'nokogiri/dom/html/param_element'
+require 'nokogiri/dom/html/pre_element'
 
 module Nokogiri
   module DOM
@@ -65,6 +67,8 @@ module Nokogiri
               'object'    => [DOM::HTML::ObjectElement],
               'ol'        => [DOM::HTML::OListElement],
               'option'    => [DOM::HTML::OptionElement],
+              'param'     => [DOM::HTML::ParamElement],
+              'pre'       => [DOM::HTML::PreElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end
