@@ -17,6 +17,12 @@ require 'nokogiri/dom/html/image_element'
 require 'nokogiri/dom/html/input_element'
 require 'nokogiri/dom/html/is_index_element'
 require 'nokogiri/dom/html/label_element'
+require 'nokogiri/dom/html/legend_element'
+require 'nokogiri/dom/html/li_element'
+require 'nokogiri/dom/html/link_element'
+require 'nokogiri/dom/html/map_element'
+require 'nokogiri/dom/html/meta_element'
+require 'nokogiri/dom/html/object_element'
 
 module Nokogiri
   module DOM
@@ -49,6 +55,12 @@ module Nokogiri
               'input'     => [DOM::HTML::InputElement],
               'isindex'   => [DOM::HTML::IsIndexElement],
               'label'     => [DOM::HTML::LabelElement],
+              'legend'    => [DOM::HTML::LegendElement],
+              'li'        => [DOM::HTML::LiElement],
+              'link'      => [DOM::HTML::LinkElement],
+              'map'       => [DOM::HTML::MapElement],
+              'meta'      => [DOM::HTML::MetaElement],
+              'object'    => [DOM::HTML::ObjectElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end
