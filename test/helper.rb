@@ -120,7 +120,12 @@ module DOM
 
     ### FIXME not sure how this assertion is supposed to work
     def assertEqualsAutoCase one, two, expected, actual
-      assert_equal expected.downcase, actual.downcase
+      case expected
+      when Array
+        assert_equal expected.map { |x| x.downcase }, actual.map { |x| x.downcase }
+      else
+        assert_equal expected.downcase, actual.downcase
+      end
     end
 
     def preload(content_type, doc_uri, will_be_modified)

@@ -5,6 +5,10 @@ module Nokogiri
         def name
           self['name']
         end
+
+        def options
+          xpath('.//option')
+        end
       end
     end
   end

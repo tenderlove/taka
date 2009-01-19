@@ -23,6 +23,8 @@ require 'nokogiri/dom/html/link_element'
 require 'nokogiri/dom/html/map_element'
 require 'nokogiri/dom/html/meta_element'
 require 'nokogiri/dom/html/object_element'
+require 'nokogiri/dom/html/olist_element'
+require 'nokogiri/dom/html/option_element'
 
 module Nokogiri
   module DOM
@@ -61,6 +63,8 @@ module Nokogiri
               'map'       => [DOM::HTML::MapElement],
               'meta'      => [DOM::HTML::MetaElement],
               'object'    => [DOM::HTML::ObjectElement],
+              'ol'        => [DOM::HTML::OListElement],
+              'option'    => [DOM::HTML::OptionElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end
