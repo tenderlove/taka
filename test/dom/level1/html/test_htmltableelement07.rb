@@ -62,8 +62,8 @@ DOMTestCase('HTMLTableElement07') do
     result = []
       
     expectedOptions = []
-      expectedOptions << "tr"
-      expectedOptions << "tr"
+      expectedOptions << "thead"
+      expectedOptions << "tfoot"
       expectedOptions << "tr"
       expectedOptions << "tr"
       

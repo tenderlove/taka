@@ -13,6 +13,22 @@ module Nokogiri
           self.add_child tr
           tr
         end
+
+        def caption
+          at('./caption')
+        end
+
+        def tHead
+          at('./thead')
+        end
+
+        def tFoot
+          at('./tfoot')
+        end
+
+        def tBodies
+          at('./tbody')
+        end
       end
     end
   end
