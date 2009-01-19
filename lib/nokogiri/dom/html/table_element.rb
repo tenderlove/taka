@@ -9,8 +9,14 @@ module Nokogiri
         end
 
         def insertRow index
+          siblings = xpath('.//tr')
           tr = XML::Node.new('tr', self.document)
-          self.add_child tr
+
+          if !siblings[index]
+            self.add_child tr
+          else
+            siblings[index].add_previous_sibling tr
+          end
           tr
         end
 

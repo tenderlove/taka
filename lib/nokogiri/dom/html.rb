@@ -31,6 +31,7 @@ require 'nokogiri/dom/html/script_element'
 require 'nokogiri/dom/html/style_element'
 require 'nokogiri/dom/html/table_cell_element'
 require 'nokogiri/dom/html/col_element'
+require 'nokogiri/dom/html/table_section_element'
 
 module Nokogiri
   module DOM
@@ -47,8 +48,9 @@ module Nokogiri
             ({
               'table'     => [DOM::HTML::TableElement],
               'tr'        => [DOM::HTML::TableRowElement],
-              'thead'     => [DOM::HTML::TableRowElement],
-              'tfoot'     => [DOM::HTML::TableRowElement],
+              'thead'     => [DOM::HTML::TableSectionElement],
+              'tfoot'     => [DOM::HTML::TableSectionElement],
+              'tbody'     => [DOM::HTML::TableSectionElement],
               'a'         => [DOM::HTML::AnchorElement],
               'applet'    => [DOM::HTML::AppletElement],
               'area'      => [DOM::HTML::AreaElement],
