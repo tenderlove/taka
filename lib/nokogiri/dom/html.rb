@@ -30,6 +30,7 @@ require 'nokogiri/dom/html/pre_element'
 require 'nokogiri/dom/html/script_element'
 require 'nokogiri/dom/html/style_element'
 require 'nokogiri/dom/html/table_cell_element'
+require 'nokogiri/dom/html/col_element'
 
 module Nokogiri
   module DOM
@@ -76,6 +77,8 @@ module Nokogiri
               'style'     => [DOM::HTML::StyleElement],
               'th'        => [DOM::HTML::TableCellElement],
               'td'        => [DOM::HTML::TableCellElement],
+              'col'       => [DOM::HTML::ColElement],
+              'colgroup'  => [DOM::HTML::ColElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end

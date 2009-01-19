@@ -15,6 +15,18 @@ module Nokogiri
         def ch
           self['char']
         end
+
+        def chOff
+          self['charoff']
+        end
+
+        def colSpan
+          self['colspan'] && self['colspan'].to_i
+        end
+
+        def rowSpan
+          self['rowspan'] && self['rowspan'].to_i
+        end
       end
     end
   end
