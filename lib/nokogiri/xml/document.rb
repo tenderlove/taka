@@ -1,8 +1,6 @@
 module Nokogiri
   module XML
     class Document < Node
-      include DOM::Document
-
       def name
         'document'
       end

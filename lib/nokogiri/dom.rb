@@ -10,3 +10,14 @@ require 'nokogiri/dom/notation'
 require 'nokogiri/dom/character_data'
 require 'nokogiri/dom/node_list'
 require 'nokogiri/dom/html'
+
+module Nokogiri
+  module DOM
+    class << self
+      def XML *args
+        doc = Nokogiri::XML(*args)
+        doc.extend(DOM::Document)
+      end
+    end
+  end
+end

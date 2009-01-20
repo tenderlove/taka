@@ -144,7 +144,7 @@ module DOM
         Nokogiri::DOM::HTML(File.open(html_file), html_file, nil, options)
       else
         xml_file = File.join(BASE, 'dom', 'level1','core','files',"#{doc_uri}.xml")
-        Nokogiri::XML(File.open(xml_file), xml_file, nil, options)
+        Nokogiri::DOM::XML(File.open(xml_file), xml_file, nil, options)
       end
     end
   end
