@@ -23,6 +23,27 @@ module Nokogiri
         def name
           self['name']
         end
+
+        def tabIndex
+          (self['tabindex'] || 0).to_i
+        end
+
+        def type
+          node_name
+        end
+
+        def blur
+        end
+
+        def focus
+        end
+
+        def select
+        end
+
+        def value
+          inner_text
+        end
       end
     end
   end

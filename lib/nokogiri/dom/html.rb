@@ -33,6 +33,7 @@ require 'nokogiri/dom/html/table_cell_element'
 require 'nokogiri/dom/html/col_element'
 require 'nokogiri/dom/html/table_section_element'
 require 'nokogiri/dom/html/text_area_element'
+require 'nokogiri/dom/html/u_list_element'
 
 module Nokogiri
   module DOM
@@ -83,6 +84,7 @@ module Nokogiri
               'col'       => [DOM::HTML::ColElement],
               'colgroup'  => [DOM::HTML::ColElement],
               'textarea'  => [DOM::HTML::TextAreaElement],
+              'ul'        => [DOM::HTML::UListElement],
             }[node.name] || []).each do |klass|
               node.extend(klass)
             end
