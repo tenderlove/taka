@@ -159,7 +159,8 @@ module Nokogiri
         if ancestors.include?(new_child)
           raise XML::DOMException.new(XML::DOMException::HIERARCHY_REQUEST_ERR)
         end
-        new_child.parent = self
+        add_child new_child
+        new_child
       end
 
       def hasChildNodes

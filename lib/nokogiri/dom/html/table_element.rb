@@ -4,18 +4,23 @@ module Nokogiri
       module TableElement
         def rows
           DOM::NodeList.new {
-            xpath('./thead', './tfoot', './tr', './tbody/tr')
+            xpath('./thead/tr', './tbody/tr', './tr', './tfoot/tr')
           }
         end
 
         def insertRow index
-          siblings = xpath('.//tr')
           tr = XML::Node.new('tr', self.document)
 
-          if !siblings[index]
+          sibling = rows[index] || rows.last
+
+          if rows.length == 0
+            add_child Nokogiri::XML::Node.new('tbody', document)
+          end
+
+          if !sibling
             self.add_child tr
           else
-            siblings[index].add_previous_sibling tr
+            sibling.add_previous_sibling tr
           end
           tr
         end
