@@ -81,7 +81,7 @@ module Nokogiri
       end
 
       def attributes
-        raise(NotImplementedError.new)
+        super
       end
 
       def ownerDocument
