@@ -23,6 +23,28 @@ module Nokogiri
             return i if tr == self
           end
         end
+
+        def insertCell index
+          td = XML::Node.new('td', self.document)
+          cell = cells[index]
+          if cell
+            cell.add_previous_sibling td
+          else
+            add_child td
+          end
+        end
+
+        def deleteCell index
+          (cell = cells[index]) && cell.unlink
+        end
+
+        def ch
+          self['char']
+        end
+
+        def chOff
+          self['charoff']
+        end
       end
     end
   end
