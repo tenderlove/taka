@@ -17,6 +17,12 @@ module Nokogiri
         def cells
           xpath('.//td', './/th')
         end
+
+        def sectionRowIndex
+          parent.xpath('./tr').each_with_index do |tr, i|
+            return i if tr == self
+          end
+        end
       end
     end
   end

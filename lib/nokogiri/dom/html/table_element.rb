@@ -25,6 +25,10 @@ module Nokogiri
           tr
         end
 
+        def deleteRow index
+          (row = rows[index]) && row.unlink
+        end
+
         def caption
           at('./caption')
         end
