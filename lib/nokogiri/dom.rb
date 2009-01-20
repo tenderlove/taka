@@ -1,5 +1,6 @@
 require 'nokogiri/dom/element'
 require 'nokogiri/dom/node'
+require 'nokogiri/dom/dtd'
 require 'nokogiri/dom/processing_instruction'
 require 'nokogiri/dom/document'
 require 'nokogiri/dom/node_set'
