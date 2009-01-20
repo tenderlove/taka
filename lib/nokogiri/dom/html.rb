@@ -40,12 +40,19 @@ module Nokogiri
     class << self
       def HTML *args
         doc = Nokogiri::HTML(*args)
-        doc.decorators(XML::Node) << DOM::HTML::Element
-        doc.decorators(XML::NodeSet) << DOM::HTML::Collection
+        doc.extend(DOM::Element)
+        doc.extend(DOM::Node)
+        doc.extend(DOM::Document)
         doc.extend(DOM::HTML::Document)
         doc.extend(Module.new {
           def decorate node
-            return super unless node.respond_to?(:name)
+            node = super
+
+            if node.is_a?(Nokogiri::XML::NodeSet)
+              node.extend(DOM::HTML::Collection)
+              return node
+            end
+
             node.extend(DOM::HTML::Element)
             ({
               'table'     => [DOM::HTML::TableElement],
@@ -85,11 +92,10 @@ module Nokogiri
               'colgroup'  => [DOM::HTML::ColElement],
               'textarea'  => [DOM::HTML::TextAreaElement],
               'ul'        => [DOM::HTML::UListElement],
-            }[node.name] || []).each do |klass|
+            }[node.node_name] || []).each do |klass|
               node.extend(klass)
             end
 
-            super
             node
           end
         })
