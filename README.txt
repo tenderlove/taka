@@ -1,93 +1,35 @@
-= Nokogiri
-
-* http://nokogiri.rubyforge.org/
-* http://github.com/tenderlove/nokogiri/wikis
-* http://github.com/tenderlove/nokogiri/tree/master
-* http://rubyforge.org/mailman/listinfo/nokogiri-talk
-* http://nokogiri.lighthouseapp.com/projects/19607-nokogiri/overview
+= Taka
 
 == DESCRIPTION:
 
-Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser.
+Taka is a DOM (core and html) implementation for ruby
 
 == FEATURES:
 
-* XPath support for document searching
-* CSS3 selector support for document searching
-* XML/HTML builder
-* Drop in replacement for Hpricot (though not bug for bug)
-
-Nokogiri parses and searches XML/HTML very quickly, and also has
-correctly implemented CSS3 selector support as well as XPath support.
-
-Here is a speed test:
-
-  * http://gist.github.com/24605
-
-Nokogiri also features an Hpricot compatibility layer to help ease the change
-to using correct CSS and XPath.
 
 == SUPPORT:
 
-The Nokogiri mailing list is available here:
-
-  * http://rubyforge.org/mailman/listinfo/nokogiri-talk
-
-The bug tracker is available here:
-
-  * http://nokogiri.lighthouseapp.com/projects/19607-nokogiri/overview
 
 == SYNOPSIS:
-
-  require 'nokogiri'
-  require 'open-uri'
-  
-  doc = Nokogiri::HTML(open('http://www.google.com/search?q=tenderlove'))
-  
-  ####
-  # Search for nodes by css
-  doc.css('h3.r a.l').each do |link|
-    puts link.content
-  end
-  
-  ####
-  # Search for nodes by xpath
-  doc.xpath('//h3/a[@class="l"]').each do |link|
-    puts link.content
-  end
-  
-  ####
-  # Or mix and match.
-  doc.search('h3.r a.l', '//h3/a[@class="l"]').each do |link|
-    puts link.content
-  end
-
 
 == REQUIREMENTS:
 
 * ruby 1.8 or 1.9
-* libxml
-* libxslt
+* nokogiri
 
 == INSTALL:
 
-* sudo gem install nokogiri
+* sudo gem install taka
 
 == DEVELOPMENT:
-
-Developing Nokogiri requires racc and frex.
-
-* rake install:deps
-* rake test
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2008:
+Copyright (c) 2009:
 
 * {Aaron Patterson}[http://tenderlovemaking.com]
-* {Mike Dalessio}[http://mike.daless.io]
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
