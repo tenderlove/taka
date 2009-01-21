@@ -81,7 +81,11 @@ module Nokogiri
       end
 
       def attributes
-        super
+        return nil unless attribute_nodes
+        hash = super
+        hash.extend(DOM::NamedNodeMap)
+        hash.document = document
+        hash
       end
 
       def ownerDocument

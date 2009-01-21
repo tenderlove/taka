@@ -140,7 +140,7 @@ module Nokogiri
           nx::Text     => [DOM::Element, DOM::Node, DOM::Text, DOM::CharacterData],
           nx::CDATA    => [DOM::Element, DOM::Node, DOM::Text, DOM::CharacterData],
           nx::ProcessingInstruction => [DOM::Element, DOM::Node, DOM::ProcessingInstruction],
-          nx::EntityDeclaration => [DOM::Element, DOM::Node],
+          nx::EntityDeclaration => [DOM::Element, DOM::Node, DOM::EntityDeclaration],
           nx::DTD     => [DOM::Element, DOM::Node, DOM::DTD],
           nx::DocumentFragment => [DOM::Element, DOM::Node],
           nx::Comment => [DOM::Element, DOM::Node],

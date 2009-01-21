@@ -6,7 +6,7 @@ module Nokogiri
       end
 
       def attributes
-        super.extend(DOM::NamedNodeMap)
+        nil
       end
 
       def notations
