@@ -64,8 +64,8 @@ DOMTestCase('hc_entitiesremovenameditem1') do
       success = false;
       begin
         retval = entities.removeNamedItem("alpha")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NO_MODIFICATION_ALLOWED_ERR)
       end 
       assert(success, "throw_NO_MODIFICATION_ALLOWED_ERR")
     end

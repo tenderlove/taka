@@ -77,8 +77,8 @@ org.w3c.domts.DocumentBuilderSetting.signed
       success = false;
       begin
         badSubstring = child.substringData(10, -3)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::INDEX_SIZE_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::INDEX_SIZE_ERR)
       end 
       assert(success, "throws_INDEX_SIZE_ERR")
     end

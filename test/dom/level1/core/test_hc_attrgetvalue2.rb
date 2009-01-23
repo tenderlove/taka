@@ -67,8 +67,8 @@ DOMTestCase('hc_attrgetvalue2') do
       success = false;
       begin
         alphaRef = doc.createEntityReference("alpha")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NOT_SUPPORTED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NOT_SUPPORTED_ERR)
       end 
       assert(success, "throw_NOT_SUPPORTED_ERR")
     end

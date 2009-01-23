@@ -64,8 +64,8 @@ DOMTestCase('hc_elementinvalidcharacterexception') do
       success = false;
       begin
         testAddress.setAttribute("invalid^Name", "value")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::INVALID_CHARACTER_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::INVALID_CHARACTER_ERR)
       end 
       assert(success, "throw_INVALID_CHARACTER_ERR")
     end

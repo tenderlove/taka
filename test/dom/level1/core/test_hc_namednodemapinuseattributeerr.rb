@@ -76,8 +76,8 @@ DOMTestCase('hc_namednodemapinuseattributeerr') do
       success = false;
       begin
         setNode = attributes.setNamedItem(domesticAttr)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::INUSE_ATTRIBUTE_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::INUSE_ATTRIBUTE_ERR)
       end 
       assert(success, "throw_INUSE_ATTRIBUTE_ERR")
     end

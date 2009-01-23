@@ -79,8 +79,8 @@ DOMTestCase('elementinuseattributeerr') do
       success = false;
       begin
         setAttr2 = testAddress.setAttributeNode(newAttribute)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::INUSE_ATTRIBUTE_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::INUSE_ATTRIBUTE_ERR)
       end 
       assert(success, "throw_INUSE_ATTRIBUTE_ERR")
     end

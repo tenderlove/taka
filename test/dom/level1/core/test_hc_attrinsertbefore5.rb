@@ -69,8 +69,8 @@ DOMTestCase('hc_attrinsertbefore5') do
       success = false;
       begin
         textNode = doc.createCDATASection("terday")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NOT_SUPPORTED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NOT_SUPPORTED_ERR)
       end 
       assert(success, "throw_NOT_SUPPORTED_ERR")
     end
@@ -82,8 +82,8 @@ DOMTestCase('hc_attrinsertbefore5') do
       success = false;
       begin
         retval = titleAttr.insertBefore(textNode, refChild)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::HIERARCHY_REQUEST_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::HIERARCHY_REQUEST_ERR)
       end 
       assert(success, "throw_HIERARCHY_REQUEST_ERR")
     end

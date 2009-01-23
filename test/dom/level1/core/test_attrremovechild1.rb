@@ -66,8 +66,8 @@ DOMTestCase('attrremovechild1') do
       success = false;
       begin
         removedNode = attrNode.removeChild(textNode)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NO_MODIFICATION_ALLOWED_ERR)
       end 
       assert(success, "setValue_throws_NO_MODIFICATION_ERR")
     end

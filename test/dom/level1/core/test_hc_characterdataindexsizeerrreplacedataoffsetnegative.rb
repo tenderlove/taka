@@ -78,8 +78,8 @@ org.w3c.domts.DocumentBuilderSetting.signed
       success = false;
       begin
         child.replaceData(-5, 3, "ABC")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::INDEX_SIZE_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::INDEX_SIZE_ERR)
       end 
       assert(success, "throws_INDEX_SIZE_ERR")
     end

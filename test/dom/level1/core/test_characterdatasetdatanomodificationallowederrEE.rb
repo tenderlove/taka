@@ -66,8 +66,8 @@ DOMTestCase('characterdatasetdatanomodificationallowederrEE') do
       success = false;
       begin
         entText.data = "newData"
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NO_MODIFICATION_ALLOWED_ERR)
       end 
       assert(success, "throw_NO_MODIFICATION_ALLOWED_ERR")
     end

@@ -71,8 +71,8 @@ DOMTestCase('textindexsizeerroffsetoutofbounds') do
       success = false;
       begin
         splitNode = textNode.splitText(300)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::INDEX_SIZE_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::INDEX_SIZE_ERR)
       end 
       assert(success, "throw_INDEX_SIZE_ERR")
     end

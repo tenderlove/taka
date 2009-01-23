@@ -82,8 +82,8 @@ DOMTestCase('characterdatadeletedatanomodificationallowederr') do
       success = false;
       begin
         entElementContent.deleteData(1, 3)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NO_MODIFICATION_ALLOWED_ERR)
       end 
       assert(success, "throw_NO_MODIFICATION_ALLOWED_ERR")
     end

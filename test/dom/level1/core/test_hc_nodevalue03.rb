@@ -58,8 +58,8 @@ DOMTestCase('hc_nodevalue03') do
       success = false;
       begin
         newNode = doc.createEntityReference("ent1")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NOT_SUPPORTED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NOT_SUPPORTED_ERR)
       end 
       assert(success, "throw_NOT_SUPPORTED_ERR")
     end

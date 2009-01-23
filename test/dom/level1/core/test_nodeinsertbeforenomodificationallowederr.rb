@@ -86,8 +86,8 @@ DOMTestCase('nodeinsertbeforenomodificationallowederr') do
       success = false;
       begin
         insertedNode = entElement.insertBefore(createdNode, refChild)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NO_MODIFICATION_ALLOWED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NO_MODIFICATION_ALLOWED_ERR)
       end 
       assert(success, "throw_NOT_MODIFICATION_ALLOWED_ERR")
     end

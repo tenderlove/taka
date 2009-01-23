@@ -61,8 +61,8 @@ DOMTestCase('documentinvalidcharacterexceptioncreatepi') do
       success = false;
       begin
         badPI = doc.createProcessingInstruction("foo", "data")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NOT_SUPPORTED_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NOT_SUPPORTED_ERR)
       end 
       assert(success, "throw_NOT_SUPPORTED_ERR")
     end
@@ -73,8 +73,8 @@ DOMTestCase('documentinvalidcharacterexceptioncreatepi') do
       success = false;
       begin
         badPI = doc.createProcessingInstruction("invalid^Name", "data")
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::INVALID_CHARACTER_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::INVALID_CHARACTER_ERR)
       end 
       assert(success, "throw_INVALID_CHARACTER_ERR")
     end

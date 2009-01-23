@@ -76,8 +76,8 @@ DOMTestCase('nodereplacechildnewchilddiffdocument') do
       success = false;
       begin
         replacedChild = elementNode.replaceChild(newChild, oldChild)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::WRONG_DOCUMENT_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::WRONG_DOCUMENT_ERR)
       end 
       assert(success, "throw_WRONG_DOCUMENT_ERR")
     end

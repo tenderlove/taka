@@ -7,6 +7,7 @@ end
 
 require 'rubygems'
 require 'nokogiri'
+require 'taka'
 
 module DOM
   class TestCase < Test::Unit::TestCase
@@ -72,10 +73,10 @@ module DOM
       options |= (1 << 5 | 1 << 6)
       if self.class.name =~ /^Html/
         html_file = File.join(BASE, 'dom', 'level1','html','files',"#{doc_uri}.html")
-        Nokogiri::DOM::HTML(File.open(html_file), html_file, nil, options)
+        Taka::DOM::HTML(File.open(html_file), html_file, nil, options)
       else
         xml_file = File.join(BASE, 'dom', 'level1','core','files',"#{doc_uri}.xml")
-        Nokogiri::DOM::XML(File.open(xml_file), xml_file, nil, options)
+        Taka::DOM::XML(File.open(xml_file), xml_file, nil, options)
       end
     end
   end

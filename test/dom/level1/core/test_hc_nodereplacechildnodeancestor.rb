@@ -73,8 +73,8 @@ DOMTestCase('hc_nodereplacechildnodeancestor') do
       success = false;
       begin
         replacedNode = employeeNode.replaceChild(newChild, oldChild)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::HIERARCHY_REQUEST_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::HIERARCHY_REQUEST_ERR)
       end 
       assert(success, "throw_HIERARCHY_REQUEST_ERR")
     end

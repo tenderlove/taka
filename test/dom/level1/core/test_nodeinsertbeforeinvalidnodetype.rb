@@ -74,8 +74,8 @@ DOMTestCase('nodeinsertbeforeinvalidnodetype') do
       success = false;
       begin
         insertedNode = rootNode.insertBefore(newChild, refChild)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::HIERARCHY_REQUEST_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::HIERARCHY_REQUEST_ERR)
       end 
       assert(success, "throw_HIERARCHY_REQUEST_ERR")
     end

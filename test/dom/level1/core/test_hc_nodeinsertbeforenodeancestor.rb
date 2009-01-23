@@ -73,8 +73,8 @@ DOMTestCase('hc_nodeinsertbeforenodeancestor') do
       success = false;
       begin
         insertedNode = employeeNode.insertBefore(newChild, refChild)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::HIERARCHY_REQUEST_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::HIERARCHY_REQUEST_ERR)
       end 
       assert(success, "throw_HIERARCHY_REQUEST_ERR")
     end

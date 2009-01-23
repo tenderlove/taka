@@ -69,8 +69,8 @@ DOMTestCase('hc_noderemovechildoldchildnonexistent') do
       success = false;
       begin
         removedChild = elementNode.removeChild(oldChild)
-      rescue Nokogiri::XML::DOMException => ex
-        success = (ex.code == Nokogiri::XML::DOMException::NOT_FOUND_ERR)
+      rescue Taka::DOMException => ex
+        success = (ex.code == Taka::DOMException::NOT_FOUND_ERR)
       end 
       assert(success, "throw_NOT_FOUND_ERR")
     end
