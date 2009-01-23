@@ -48,6 +48,10 @@ module Taka
         copy[offset, count] = arg
         self.content = copy
       end
+
+      def nodeName
+        '#cdata-section'
+      end
     end
   end
 end

@@ -5,7 +5,7 @@ module Taka
         nil
       end
 
-      def name
+      def nodeName
         '#document-fragment'
       end
     end
