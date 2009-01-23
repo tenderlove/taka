@@ -141,9 +141,10 @@ module Nokogiri
           nx::CDATA    => [DOM::Element, DOM::Node, DOM::Text, DOM::CharacterData],
           nx::ProcessingInstruction => [DOM::Element, DOM::Node, DOM::ProcessingInstruction],
           nx::EntityDeclaration => [DOM::Element, DOM::Node, DOM::EntityDeclaration],
+          nx::EntityReference => [DOM::Element, DOM::Node, DOM::EntityReference],
           nx::DTD     => [DOM::Element, DOM::Node, DOM::DTD],
-          nx::DocumentFragment => [DOM::Element, DOM::Node],
-          nx::Comment => [DOM::Element, DOM::Node],
+          nx::DocumentFragment => [DOM::Element, DOM::Node, DOM::DocumentFragment],
+          nx::Comment => [DOM::Element, DOM::Node, DOM::Comment],
         }[node.class]
 
         raise("Unknown type #{node.class.name}") unless list

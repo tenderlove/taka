@@ -1,6 +1,10 @@
 module Nokogiri
   module DOM
     module Text
+      def attributes
+        nil
+      end
+
       def splitText index
         if index < 0 || index > length
           raise XML::DOMException.new(XML::DOMException::INDEX_SIZE_ERR)

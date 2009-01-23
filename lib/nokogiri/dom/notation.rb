@@ -23,6 +23,10 @@ module Nokogiri
       def nodeType
         12
       end
+
+      def attributes
+        nil
+      end
     end
   end
 end
