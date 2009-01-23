@@ -4,7 +4,9 @@ module Taka
       attr_accessor :document
 
       def getNamedItem name
-        document.decorate(self[name])
+        item = self[name]
+        return item unless item
+        document.decorate(item)
       end
 
       def removeNamedItem name

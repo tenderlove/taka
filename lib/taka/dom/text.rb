@@ -5,6 +5,10 @@ module Taka
         nil
       end
 
+      def nodeName
+        '#text'
+      end
+
       def splitText index
         if index < 0 || index > length
           raise DOMException.new(DOMException::INDEX_SIZE_ERR)

@@ -75,7 +75,7 @@ module Taka
         def close
           @tmp_doc ||= nil
           return unless @tmp_doc
-          Taka::HTML.fragment(@tmp_doc || '').each { |node|
+          Nokogiri::HTML.fragment(@tmp_doc || '').each { |node|
             document.add_child node
           }
           @tmp_doc = nil

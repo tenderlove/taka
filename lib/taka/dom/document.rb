@@ -21,6 +21,10 @@ module Taka
         root
       end
 
+      def attributes
+        nil
+      end
+
       def createElement tag_name
         unless tag_name =~ /^\w+$/
           raise Taka::DOMException.new(Taka::DOMException::INVALID_CHARACTER_ERR)
@@ -137,7 +141,7 @@ module Taka
           nx::Element  => [DOM::Element, DOM::Node],
           nx::Attr     => [DOM::Element, DOM::Node, DOM::Attr],
           nx::NodeSet  => [DOM::NodeSet],
-          nx::Text     => [DOM::Element, DOM::Node, DOM::Text, DOM::CharacterData],
+          nx::Text     => [DOM::Element, DOM::Node, DOM::CharacterData, DOM::Text],
           nx::CDATA    => [DOM::Element, DOM::Node, DOM::Text, DOM::CharacterData],
           nx::ProcessingInstruction => [DOM::Element, DOM::Node, DOM::ProcessingInstruction],
           nx::EntityDeclaration => [DOM::Element, DOM::Node, DOM::EntityDeclaration],

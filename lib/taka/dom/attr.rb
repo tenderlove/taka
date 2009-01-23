@@ -8,6 +8,10 @@ module Taka
       def parentNode
         nil
       end
+
+      def attributes
+        nil
+      end
     end
   end
 end
