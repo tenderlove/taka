@@ -49,7 +49,7 @@ module Taka
       end
 
       def createProcessingInstruction(target, data)
-        raise(NotImplementedError.new)
+        Nokogiri::XML::ProcessingInstruction.new(self, target, data)
       end
 
       def createAttribute name
