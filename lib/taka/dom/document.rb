@@ -145,6 +145,7 @@ module Taka
           nx::DTD     => [DOM::Element, DOM::Node, DOM::DTD],
           nx::DocumentFragment => [DOM::Element, DOM::Node, DOM::DocumentFragment],
           nx::Comment => [DOM::Element, DOM::Node, DOM::Comment],
+          nx::Notation => [DOM::Element, DOM::Node, DOM::Notation],
         }[node.class]
 
         raise("Unknown type #{node.class.name}") unless list

@@ -2,7 +2,10 @@ module Taka
   module DOM
     module DTD
       def entities
-        super.extend(DOM::NamedNodeMap)
+        entities = super
+        entities.extend(DOM::NamedNodeMap)
+        entities.document ||= document
+        entities
       end
 
       def attributes
@@ -10,11 +13,17 @@ module Taka
       end
 
       def notations
-        super.extend(DOM::NamedNodeMap)
+        notations = super
+        notations.extend(DOM::NamedNodeMap)
+        notations.document ||= document
+        notations
       end
 
       def elements
-        super.extend(DOM::NamedNodeMap)
+        elements = super
+        elements.extend(DOM::NamedNodeMap)
+        elements.document ||= document
+        elements
       end
     end
   end

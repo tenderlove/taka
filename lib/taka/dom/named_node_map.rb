@@ -4,7 +4,7 @@ module Taka
       attr_accessor :document
 
       def getNamedItem name
-        self[name]
+        document.decorate(self[name])
       end
 
       def removeNamedItem name
@@ -19,14 +19,14 @@ module Taka
           raise DOMException.new(DOMException::WRONG_DOCUMENT_ERR)
         end
 
-        return_item = self[item.name]
+        return_item = getNamedItem(item.name)
 
         self[item.name] = item
         return_item
       end
 
       def item index
-        self[self.keys[index]]
+        getNamedItem(self.keys[index])
       end
     end
   end
