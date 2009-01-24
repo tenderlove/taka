@@ -12,6 +12,9 @@ Taka is a DOM (core and html) implementation for ruby
 
 == SYNOPSIS:
 
+  document = Taka::DOM::HTML(open('http://google.com/'))
+  document.getElementsByTagName('p')
+
 == REQUIREMENTS:
 
 * ruby 1.8 or 1.9
