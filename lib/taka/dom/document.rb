@@ -91,10 +91,6 @@ module Taka
         raise(NotImplementedError.new)
       end
 
-      def getElementById element_id
-        at(".//*[@id='#{element_id}']")
-      end
-
       def inputEncoding
         raise(NotImplementedError.new)
       end
@@ -160,6 +156,10 @@ module Taka
 
         list.each { |mod| node.extend(mod) }
         node
+      end
+
+      def js_property? name
+        [:body].include?(name)
       end
     end
   end
