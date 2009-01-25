@@ -13,7 +13,7 @@ module Taka
         if read_only? || [
           Node::TEXT_NODE,
           Node::ENTITY_DECL
-        ].include?(type)
+        ].include?(nodeType)
           raise DOMException.new(DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
 
@@ -38,7 +38,7 @@ module Taka
         if read_only? || [
           Node::TEXT_NODE,
           Node::ENTITY_DECL
-        ].include?(type)
+        ].include?(nodeType)
           raise DOMException.new(DOMException::NO_MODIFICATION_ALLOWED_ERR)
         end
         old_attribute = self.getAttributeNode(new_attribute.name)

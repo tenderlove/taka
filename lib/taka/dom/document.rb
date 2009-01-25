@@ -9,6 +9,10 @@ module Taka
         end
       end
 
+      def getElementById id_name
+        css("##{id_name}").first
+      end
+
       def doctype
         internal_subset
       end

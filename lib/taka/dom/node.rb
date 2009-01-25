@@ -42,7 +42,7 @@ module Taka
           DTD_NODE,
           ENTITY_DECL,
           NAMESPACE_DECL,
-        ].include?(type)
+        ].include?(nodeType)
         content
       end
 
@@ -57,7 +57,7 @@ module Taka
           DTD_NODE,
           DOCUMENT_FRAG_NODE,
           DOCUMENT_NODE,
-        ].include?(type)
+        ].include?(nodeType)
 
         if [
           CDATA_SECTION_NODE,
@@ -65,14 +65,14 @@ module Taka
           TEXT_NODE,
           PI_NODE,
           ATTRIBUTE_NODE,
-        ].include?(type)
+        ].include?(nodeType)
           return self.content = value
         end
         raise(NotImplementedError.new)
       end
 
       def nodeType
-        type
+        node_type
       end
 
       def parentNode
@@ -201,7 +201,7 @@ module Taka
           Node::DOCUMENT_TYPE_NODE,
           Node::DTD_NODE,
           Node::NAMESPACE_DECL,
-        ].include?(type)
+        ].include?(nodeType)
           raise DOMException.new(DOMException::NOT_SUPPORTED_ERR)
         end
         dup(deep ? 1 : 0)
@@ -286,7 +286,7 @@ module Taka
       ###
       # Returns true if +new_child+ can be appended
       def can_append? new_child
-        return true if new_child.type == DOCUMENT_FRAG_NODE
+        return true if new_child.nodeType == DOCUMENT_FRAG_NODE
         return false if [
           DOCUMENT_TYPE_NODE,
           DTD_NODE,
@@ -295,7 +295,7 @@ module Taka
           TEXT_NODE,
           CDATA_SECTION_NODE,
           NOTATION_NODE
-        ].include?(type)
+        ].include?(nodeType)
 
         if [
           DOCUMENT_FRAG_NODE,
@@ -303,7 +303,7 @@ module Taka
           ELEMENT_NODE,
           ENTITY_NODE,
           ENTITY_DECL
-        ].include?(type)
+        ].include?(nodeType)
           return false unless [
             ELEMENT_NODE,
             PI_NODE,
@@ -311,10 +311,10 @@ module Taka
             TEXT_NODE,
             CDATA_SECTION_NODE,
             ENTITY_REF_NODE
-          ].include?(new_child.type)
+          ].include?(new_child.nodeType)
         end
 
-        case type
+        case nodeType
         when DOCUMENT_NODE
           return false unless [
             ELEMENT_NODE,
@@ -323,12 +323,12 @@ module Taka
             DTD_NODE,
             DOCUMENT_TYPE_NODE,
             ELEMENT_NODE,
-          ].include?(new_child.type)
+          ].include?(new_child.nodeType)
         when ATTRIBUTE_NODE
           return false unless [
             TEXT_NODE,
             ENTITY_REF_NODE,
-          ].include?(new_child.type)
+          ].include?(new_child.nodeType)
         end
 
         true
