@@ -17,6 +17,15 @@ module Taka
           inner_html
         end
 
+        def js_property? name
+          case name
+          when :innerHTML, :nodeName, :id, :class
+            true
+          else
+            false
+          end
+        end
+
         def method_missing method, *args, &block
           attribute = method.to_s.downcase
           super unless key?(attribute)
