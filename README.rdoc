@@ -1,14 +1,20 @@
 = Taka
 
+"I am but mad north-northwest: when the wind is southerly I know a hawk from
+a handsaw."
+
 == DESCRIPTION:
 
-Taka is a DOM (core and html) implementation for ruby
+Taka is a DOM (core and html) implementation for ruby.  This software is
+EXTREMELY experimental.  You may hurt yourself while using it.
 
 == FEATURES:
 
+It features a DOM.
 
 == SUPPORT:
 
+Yes.
 
 == SYNOPSIS:
 
@@ -23,8 +29,6 @@ Taka is a DOM (core and html) implementation for ruby
 == INSTALL:
 
 * sudo gem install taka
-
-== DEVELOPMENT:
 
 == LICENSE:
 
