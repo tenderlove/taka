@@ -5,6 +5,10 @@ module Taka
         @block = block
       end
 
+      def item(index)
+        @block.call[index]
+      end
+
       def method_missing name, *args, &block
         @block.call.send(name, *args, &block)
       end
