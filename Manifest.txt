@@ -1,6 +1,6 @@
-History.txt
+CHANGELOG.rdoc
 Manifest.txt
-README.txt
+README.rdoc
 Rakefile
 lib/taka.rb
 lib/taka/dom.rb
