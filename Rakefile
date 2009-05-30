@@ -1,6 +1,7 @@
 # -*- ruby -*-
 
 require 'rubygems'
+require 'johnson'
 require 'rake'
 require 'hoe'
 
@@ -16,26 +17,46 @@ HOE = Hoe.new('taka', Taka::VERSION) do |p|
   p.extra_deps      = [['nokogiri', '>= 1.2.3']]
 end
 
-class NokogiriTestTask < Rake::TestTask
-  def initialize *args
-    super
-    %w[ ext lib bin test ].each do |dir|
-      self.libs << dir
-    end
-    self.test_files = FileList['test/**/test_*.rb'] +
-      FileList['test/**/*_test.rb']
-    self.verbose = "verbose"
-    self.warning = true
+file 'vendor/jquery/jquery/dist/jquery.js' do
+  Dir.chdir('vendor/jquery/jquery') do
+    sh "make"
   end
 end
 
-desc "run test suite under gdb"
-NokogiriTestTask.new('test:gdb').extend(Module.new {
-  def ruby *args
-    cmd = "gdb --args #{RUBY} #{args.join(' ')}"
-    puts cmd
-    system cmd
+class FakeWindow
+end
+
+class FakeNavigator
+  def userAgent
+    "hello world"
   end
-})
+
+  def js_property? name
+    [:userAgent].include? name
+  end
+end
+
+namespace :test do
+  task :jquery => 'vendor/jquery/jquery/dist/jquery.js' do
+    Dir.chdir 'vendor/jquery/jquery' do
+      doc = Taka::DOM::HTML(File.read('test/index.html'))
+      scripts = doc.getElementsByTagName 'script'
+      rt = Johnson::Runtime.new
+
+      rt['window']    = FakeWindow.new
+      rt['navigator'] = FakeNavigator.new
+      rt['document']  = doc
+
+      scripts.each do |tag|
+        if tag['src']
+          filename = File.expand_path(tag['src'].sub('..', '.'))
+          rt.evaluate File.read(filename), filename, 1
+        else
+          rt.evaluate tag.content
+        end
+      end
+    end
+  end
+end
 
 # vim: syntax=Ruby

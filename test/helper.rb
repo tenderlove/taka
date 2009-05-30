@@ -5,6 +5,8 @@ require 'test/unit'
   $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), path)))
 end
 
+$LOAD_PATH << ENV['NOKOGIRI_DEV'] if ENV['NOKOGIRI_DEV']
+
 require 'rubygems'
 require 'nokogiri'
 require 'taka'
