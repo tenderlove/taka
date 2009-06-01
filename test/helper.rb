@@ -6,10 +6,12 @@ require 'test/unit'
 end
 
 $LOAD_PATH << ENV['NOKOGIRI_DEV'] if ENV['NOKOGIRI_DEV']
+$LOAD_PATH << ENV['JOHNSON_DEV'] if ENV['JOHNSON_DEV']
 
 require 'rubygems'
 require 'nokogiri'
 require 'taka'
+require 'johnson'
 
 module DOM
   class TestCase < Test::Unit::TestCase
@@ -89,4 +91,23 @@ def DOMTestCase(test_case_name, &block)
   raise "Already defined!" if Object.const_defined?(klass.to_sym)
   test_klass = Class.new(DOM::TestCase, &block)
   Object.const_set(klass.to_sym, test_klass)
+end
+
+module JQuery
+  class FakeWindow
+  end
+
+  class FakeNavigator
+    def userAgent
+      "hello world"
+    end
+
+    def js_property? name
+      [:userAgent].include? name
+    end
+  end
+
+  class TestCase < Test::Unit::TestCase
+    undef :default_test
+  end  
 end

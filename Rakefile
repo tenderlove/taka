@@ -1,7 +1,6 @@
 # -*- ruby -*-
 
 require 'rubygems'
-require 'johnson'
 require 'rake'
 require 'hoe'
 
@@ -23,38 +22,16 @@ file 'vendor/jquery/jquery/dist/jquery.js' do
   end
 end
 
-class FakeWindow
-end
-
-class FakeNavigator
-  def userAgent
-    "hello world"
-  end
-
-  def js_property? name
-    [:userAgent].include? name
-  end
-end
-
 namespace :test do
+  desc "run jquery tests"
   task :jquery => 'vendor/jquery/jquery/dist/jquery.js' do
-    Dir.chdir 'vendor/jquery/jquery' do
-      doc = Taka::DOM::HTML(File.read('test/index.html'))
-      scripts = doc.getElementsByTagName 'script'
-      rt = Johnson::Runtime.new
+    require 'test/jquery/test_jquery'
+  end
 
-      rt['window']    = FakeWindow.new
-      rt['navigator'] = FakeNavigator.new
-      rt['document']  = doc
-
-      scripts.each do |tag|
-        if tag['src']
-          filename = File.expand_path(tag['src'].sub('..', '.'))
-          rt.evaluate File.read(filename), filename, 1
-        else
-          rt.evaluate tag.content
-        end
-      end
+  desc "run dom tests"
+  task :dom do
+    Dir.glob('test/dom/**/*.rb').each do |file|
+      require file
     end
   end
 end
