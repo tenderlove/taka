@@ -5,8 +5,8 @@ module JQuery
   class TestJQuery < TestCase
 
     def test_jquery
-      Dir.chdir 'vendor/jquery/jquery' do
-        doc = Taka::DOM::HTML(File.read('test/index.html'))
+      Dir.chdir 'vendor/jquery' do
+        doc = Taka::DOM::HTML(File.read('jquery/test/index.html'))
         scripts = doc.getElementsByTagName 'script'
         rt = Johnson::Runtime.new
 
@@ -17,7 +17,7 @@ module JQuery
 
         scripts.each do |tag|
           if tag['src']
-            filename = File.expand_path(tag['src'].sub('..', '.'))
+            filename = File.expand_path(tag['src'].sub('../dist', 'jquery/dist'))
             puts "(running #{tag['src']} ...)" ; STDOUT.flush
             rt.evaluate File.read(filename), filename, 1
           else
