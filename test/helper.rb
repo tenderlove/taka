@@ -110,4 +110,14 @@ module JQuery
   class TestCase < Test::Unit::TestCase
     undef :default_test
   end  
+
+  class PoorMansFirebug
+    def log *args
+      puts args.inspect
+    end
+    alias_method :debug, :log
+    alias_method :info,  :log
+    alias_method :warn,  :log
+    alias_method :error, :log
+  end
 end

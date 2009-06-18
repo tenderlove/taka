@@ -12,6 +12,7 @@ module JQuery
 
         rt['window']    = FakeWindow.new
         rt['navigator'] = FakeNavigator.new
+        rt['console']   = PoorMansFirebug.new
         rt['document']  = doc
 
         scripts.each do |tag|
