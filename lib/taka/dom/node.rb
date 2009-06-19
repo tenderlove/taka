@@ -333,6 +333,12 @@ module Taka
 
         true
       end
+
+      def js_property? name
+        return true if [:firstChild].include?(name)
+        false
+      end
+
     end
   end
 end
