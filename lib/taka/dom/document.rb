@@ -157,7 +157,8 @@ module Taka
       end
 
       def js_property? name
-        [:body].include?(name)
+        return true if [:body, :documentElement].include?(name)
+        false
       end
     end
   end
