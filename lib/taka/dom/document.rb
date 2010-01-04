@@ -142,7 +142,7 @@ module Taka
           nx::Text     => [DOM::Element, DOM::Node, DOM::CharacterData, DOM::Text],
           nx::CDATA    => [DOM::Element, DOM::Node, DOM::Text, DOM::CharacterData],
           nx::ProcessingInstruction => [DOM::Element, DOM::Node, DOM::ProcessingInstruction],
-          nx::EntityDeclaration => [DOM::Element, DOM::Node, DOM::EntityDeclaration],
+          nx::EntityDecl => [DOM::Element, DOM::Node, DOM::EntityDecl],
           nx::EntityReference => [DOM::Element, DOM::Node, DOM::EntityReference],
           nx::DTD     => [DOM::Element, DOM::Node, DOM::DTD],
           nx::DocumentFragment => [DOM::Element, DOM::Node, DOM::DocumentFragment],

@@ -1,6 +1,6 @@
 module Taka
   module DOM
-    module EntityDeclaration
+    module EntityDecl
       def attributes; nil; end
     end
   end
